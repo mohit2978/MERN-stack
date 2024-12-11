@@ -1,4 +1,4 @@
-# Lecture 1 Kabir
+# Lecture 1 
 
 ## Prerequisite to learn react
 ![alt text](image.png)
@@ -200,11 +200,42 @@ is
 ```
 now this we have put in one variable reactelement!!
 
+>Note:ReactDOM is libraray to put react element to DOM!! so in step 6 we add that!!
 
 see reactButton.html!!
+
+can see rest of codes too!!
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  </head>
+  <body>
+    <script>
+      var listReactElement = React.createElement(
+  "ul", 
+  {},
+    React.createElement("li", {}, "Item 1"),
+    React.createElement("li", {}, "Item 2"),
+    React.createElement("li", {}, "Item 3")
+    );
+
+      ReactDOM.render(listReactElement, document.querySelector("body"));
+    </script>
+  </body>
+</html>
+```
+just another example of list!!
+
+creating UI in React seems difficult!! so it brings another component called JSX!!
 
 ### JSX
 JSX makes up a large portion of the code written in most React components and thus a large amount of React in general.
 
 JSX elements are transformed into nested React.createElement() calls at a later step in our build process. JSX uses the tree structure of elements created by React.
 ![alt text](image-7.png)
+
+JSX will be converted to react elements using babel!!Then reactDom will add it to DOM!!
