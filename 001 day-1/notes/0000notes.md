@@ -20,6 +20,8 @@ To create frontend application we need some other libraries like axios ,React-DO
 # Lecture 2
 UI is collection of UI components ,this UI components help to interact with software!!
 
+## Button in html
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -32,6 +34,7 @@ UI is collection of UI components ,this UI components help to interact with soft
   </body>
 </html>
 ```
+## Button using JS
 
 ```html
 <!DOCTYPE html>
@@ -55,7 +58,7 @@ UI is collection of UI components ,this UI components help to interact with soft
   </body>
 </html>
 ```
-
+## HTMl list
 ```html
 <!DOCTYPE html>
 <html>
@@ -110,7 +113,8 @@ UI is collection of UI components ,this UI components help to interact with soft
 </html>
 
 ```
-### Js list
+## Js list
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -153,3 +157,10 @@ UI is collection of UI components ,this UI components help to interact with soft
 </html>
 
 ```
+![alt text](image-2.png)
+
+See in JSlist we are reusing the list component using createList() function!!
+
+>Note:Creating UI is easy in HTML but reusing component is good in JS!!
+
+React give both this in one !!!
