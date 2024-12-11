@@ -164,3 +164,47 @@ See in JSlist we are reusing the list component using createList() function!!
 >Note:Creating UI is easy in HTML but reusing component is good in JS!!
 
 React give both this in one !!!
+
+# Lecture 3
+
+![alt text](image-3.png)
+
+![alt text](image-4.png)
+
+![alt text](image-5.png)
+
+React is a library so we need to integrate it with html!! we integrate react.development.js in html file so we use script to add it!!
+
+
+these are CDN link of the files!!
+
+![alt text](image-6.png)
+in createArgument we put 3 param
+1. Tag name as string
+2. object
+3. children (whatever you put inside opening and closing tag of this tag is children we put here)
+
+so 
+```js
+ var buttonReactElement = React.createElement(
+        "button",
+        {},
+        "React Button"
+      );
+```
+is 
+
+```html
+<button>React Button</button>
+
+```
+now this we have put in one variable reactelement!!
+
+
+see reactButton.html!!
+
+### JSX
+JSX makes up a large portion of the code written in most React components and thus a large amount of React in general.
+
+JSX elements are transformed into nested React.createElement() calls at a later step in our build process. JSX uses the tree structure of elements created by React.
+![alt text](image-7.png)
