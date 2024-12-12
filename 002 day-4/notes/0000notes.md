@@ -1,0 +1,65 @@
+# Lecture-4
+
+We have seen creating list uisng react!!
+
+we first create a div id of root
+
+then write this
+
+```html
+  <script type="text/babel">
+      var container = (
+        <ol type="a">
+          <li>Apple</li>
+          <li>Samsung</li>
+          <li>Oppo</li>
+          <li>Vivo</li>
+        </ol>
+      );
+```
+we have put ol in a variable called container so this is JSX
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      var container = (
+        <ol type="a">
+          <li>Apple</li>
+          <li>Samsung</li>
+          <li>Oppo</li>
+          <li>Vivo</li>
+        </ol>
+      );
+
+      ReactDOM.render(container, document.getElementById("root"));
+    </script>
+  </body>
+</html>
+
+
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
