@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .card {
+        box-shadow: 0 0 10px green;
+        padding: 10px;
+        width: 270px;
+        height: 400px;
+      }
+      #cardContainer {
+        display: flex;
+        justify-content: space-evenly;
+      }
+    </style>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function createCard(name,imageUrl) {
+        // JSX code to create a Card
+        ;
+        return (
+          <div class="card">
+            <img src={imageUrl} width="100%" height="250" />
+            <h3> {name} </h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <button>Profile Details </button>
+          </div>
+        );
+      }
+
+      function multipleCard() {
+        return (
+          <div id="cardContainer">
+            {createCard("rohan vemra","https://tse1.mm.bing.net/th?id=OIP.AwGBn0RaiFXEpXemdj-2LQHaLG&pid=Api&P=0&h=180")}
+            {createCard("riya sharma","https://tse2.mm.bing.net/th?id=OIP.O8vv9O4Ku4HvFQyep-NXMAHaLG&pid=Api&P=0&h=180")}
+            {createCard("ajay sadguru","https://tse2.mm.bing.net/th?id=OIP._GQhv02YolWMzaKvTlg4GQHaLH&pid=Api&P=0&h=180")}
+            {createCard("siddharath patel","https://tse1.mm.bing.net/th?id=OIP.QjynegEfQVPq5kIEuX9fWQHaFj&pid=Api&P=0&h=180")}
+          </div>
+        );
+      }
+
+      ReactDOM.render(multipleCard(), document.getElementById("root"));
+    </script>
+  </body>
+</html>
