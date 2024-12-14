@@ -145,8 +145,13 @@ then need to add type=text/babel in script of body
 </html>
 
 ```
- see how we create JSX element!!
+ at last we add the JSX element to root !!
  
+ see how we create JSX element!! 
+
+ >Note : In JS file we write html is JSX!!
+
+## JSX list
 we first create a div id of root
 
 then write this
@@ -162,7 +167,7 @@ then write this
         </ol>
       );
 ```
-we have put ol in a variable called container so this is JSX
+we have put ol in a variable called container so this is JSX, then we put in ReactDOM
 
 ```html
 <!DOCTYPE html>
@@ -192,12 +197,30 @@ we have put ol in a variable called container so this is JSX
 
 ````
 
+## Template
 
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      //here add JSX element
+    ReactDOM.render(container, document.getElementById("root"));
+    </script>
+  </body>
+</html>
+```
+Only creation of react element is replaced by JSX element!!
 
+HTML kind of code inside Javascript is called as JSX!!
 
-
-
-
+So creating UI in react is simple is as simple as HTML!!
 
 
 
