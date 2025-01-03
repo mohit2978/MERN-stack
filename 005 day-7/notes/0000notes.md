@@ -98,7 +98,7 @@ you can create all 3 in 1 component but adding in 1 will create issue with reusa
 </html>
 
 ```
-see code and see how we call CreateCardFunction from main,CreateCard hard parameters in prop !!
+see code and see how we call CreateCardFunction from main,CreateCard had parameters in props Object , the first parameter is always Object ,it can have any name here we have put props,we prefer that only and we passing the parameters as attribute while calling !!
 
 
 ![alt text](image-2.png)
