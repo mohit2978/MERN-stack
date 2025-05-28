@@ -77,3 +77,98 @@ Why 2 different links??
 These two files have great algorithm in it!!
 
 > In src tag  HTML we put sometimes crossorigin why??
+
+Now we use above code to create h1 !!
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+
+  </head>
+  <body>
+    <div id="root">
+      <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+      <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+      <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+      <script>
+        const heading=React.createElement("h1",{},"Hello from React");
+
+        const root=ReactDOM.createRoot(document.getElementById("root"));
+
+        root.render(heading);
+      </script>
+    </div>
+
+    <script type="text/babel"></script>
+  </body>
+</html>
+
+
+```
+
+![alt text](image.png)
+
+>see we getting h1 inside root!!
+
+createRoot comes from ReactDOM !!
+
+createElemenet comes from React!!1st parameter is tag 2nd is attributes and 3rd is the content inside tag!!
+
+eg we want id heading in const heading 
+
+`const heading=React.createElement("h1",{id:"heading",xyz:"abc"},"Hello from React");`
+ we even giving custom tag like xyz!! The createElement returns a React Element!! REact Element is normal JS object!! It has children and attributes 
+
+then we render heading into root!!
+
+
+It is not a good practice to put all react code in here!!Put it in JS file!!
+
+Can see ReactInSeparateJS file aboev in code section!!
+
+>Note:The createElement returns a React Element!! REact Element is normal JS object!! It has property props which has children and attributes 
+
+let us see that in ex1 folder
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+
+  </head>
+  <body>
+    <div id="root">
+      <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+      <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+      <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+      <script src="app.js"></script>
+    </div>
+  </body>
+</html>
+```
+
+
+```Javascript
+const heading=React.createElement("h1"
+    ,{id:"heading",xyz:"abc"}
+    ,"Hello from React");
+
+console.log(heading);
+
+const root=ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(heading);
+```
+
+Output:
+
+![alt text](image-1.png)
+
+can see props here!!
+
+Render() function takes React element as input !! when we do `root.render(heading)` heading and root both are React elememts!! render converts heading element to h1 tag and put on DOM!!
+
+
+React was build was philosophy to manipulate DOM with JS!! Manipulating DOM is very costly !! React makes the manipulation of DOM very effeciently!!
+
