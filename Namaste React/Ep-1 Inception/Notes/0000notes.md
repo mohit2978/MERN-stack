@@ -172,3 +172,32 @@ Render() function takes React element as input !! when we do `root.render(headin
 
 React was build was philosophy to manipulate DOM with JS!! Manipulating DOM is very costly !! React makes the manipulation of DOM very effeciently!!
 
+
+Now we want nested elements!!see ex2
+
+we will use 3rd parameter of createElement() and put nested createElement as 3rd parameter is content !!
+
+```javascript
+const parent=React.createElement("div"
+    ,{id:"parent"}
+    ,React.createElement("div"
+        ,{id:"child"},
+        React.createElement("h1"
+            ,{id:"heading",xyz:"abc"}
+            ,"Heading from React")));
+
+
+
+
+const root=ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(parent);
+```
+
+
+![alt text](image-3.png)
+
+
+We get what we wanted!!
+
+Now we want siblings !! add multiple siblings !! can see ex3!!
