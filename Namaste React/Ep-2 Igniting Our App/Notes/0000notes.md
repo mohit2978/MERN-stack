@@ -9,7 +9,9 @@ React alone cannot make production ready app !! There are a lot of other things 
 
 ## npm (Node package manager)
 
-npm does not stands for node package manager!! `On official website ,it is everything except Node pacakge manager!!` 
+npm does not stands for node package manager!
+Node pacakge manager is not abbreviation for npm!!
+! `On official website ,it is everything except Node pacakge manager!!` 
 
 >Note:npm does not have full form !!
 
@@ -134,6 +136,7 @@ see parcel dependency and version added!! see Sign ^ this is called as caret, yo
 
 - caret(^) menas automatically update the package to a new minor version!!
 -  tilda(~) menas automatically update the package to a new major version!!
+- If you do not need any update just do not put any of symbols!!
 
 >Note: Recommended to use caret as we need to update to inor updates!!
 
@@ -192,4 +195,31 @@ it has all code we fetch from npm !! It has all dependencies we needed !!
 
 node_modules is very heavy folder!! We have included only parcel as dependency!!what are other folders??
 
-this might be dependencies of parcel which needs more dependncies and so on trasitive dependencies!!
+this might be dependencies of parcel which needs more dependncies and so on trasitive dependencies!!Every dependency will have its own package.json so from there it will get it's transitive dependency!!
+
+>Note:We do not put thses node modules on git and on production so we put them in gitIgnore!!
+
+we put package.json and package-lock.json on git as they have dependencies!!package-lock.json has all dependency list even transitive ones!! so we put both on git !! and these both can regeneate node_modules!!
+we can get them all by `npm install`!!
+
+>Note: whatever you can regeenerate do not put on git
+
+now we will `ignite our app` by command `npx parcel index.html`
+
+```sh
+PS C:\Users\user\Desktop\Programs\MERN-stack\Namaste React\Ep-2 Igniting Our App\Code\ex2nestedElements> npx parcel indexByReact.html
+Server running at http://localhost:1234
+√ Built in 16ms
+
+
+```
+
+![alt text](image-1.png)
+
+parcel has ccreated a server for us and host our application on that !!
+
+>npx means executing a pacakge !!npx parcel means execute parcel !! 
+
+One wasy to install React by CDN on project !!as we need to give network call to CDn to get react!! Also for each version upgrade of react need to update CDN link!!
+
+Another way is `npm install React` as React is a node package!! so we will have react dependency in package.json!! also version will be upgraded by npm only!!
