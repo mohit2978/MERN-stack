@@ -11,8 +11,5 @@
     "project"
   ],
   "author": "Mohit",
-  "license": "ISC",
-  "dependencies": {
-    "parcel": "^2.15.2"
-  }
+  "license": "ISC"
 }
