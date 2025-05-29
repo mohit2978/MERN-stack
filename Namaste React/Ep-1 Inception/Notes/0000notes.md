@@ -201,3 +201,59 @@ root.render(parent);
 We get what we wanted!!
 
 Now we want siblings !! add multiple siblings !! can see ex3!!
+
+so 3rd parameter we give as array !!
+
+```javascript
+const parent=React.createElement("div"
+    ,{id:"parent"}
+    ,React.createElement("div"
+        ,{id:"child"},
+       [ React.createElement("h1",{},"Heading from React"),
+        React.createElement("h2",{},"Heading from React2"),]
+    ));
+
+
+
+
+const root=ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(parent);
+
+```
+
+![alt text](image-2.png)
+
+we are getting error 
+
+![](image-4.png)
+
+will see it later!!
+
+This was core react!!!
+
+ Now we see React.createElement is making code very complex for now!! so that's why we use JSX!!
+
+now see 
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+
+  </head>
+  <body>
+    <div id="root">
+
+      <script src="app.js"></script>
+      <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+      <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+      <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+      
+    </div>
+  </body>
+</html>
+```
+
+If we put `<script src="app.js"></script>` befoire CDN links !!Then our app will not work !!
+Even the CDN links should be in order as we provided above!!
