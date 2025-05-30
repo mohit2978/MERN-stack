@@ -382,5 +382,19 @@ parcel_cache is automatically generated too!! so we do not put that in git!! As 
 
 #### what is hot module Replacement(HMR)?this is we do in next class!!
 
+to make your app compatabile with older versions ,you can use browser list(another npm package)!!
+
+in package.json you need to tell browser list!!!!!
+
+You need to give list!! In list of browser you provided it will definitely work but for other it may or may not work!!
+
+
+link -->https://browsersl.ist/#q=%3E+0.2%25+and+not+dead
+
+to check verion coverage of differnt browsers!!
+
+Government website should have 99 percent of browser coverage but webaite for developer can cover latest version only as devleopers use latest browsers!! 
 
 `React just only makes application faster ,it uses many other things like Bundler`
+
+This is all inside a create React app or vite etc!!
