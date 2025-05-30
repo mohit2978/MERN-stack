@@ -222,4 +222,165 @@ parcel has ccreated a server for us and host our application on that !!
 
 One wasy to install React by CDN on project !!as we need to give network call to CDn to get react!! Also for each version upgrade of react need to update CDN link!!
 
-Another way is `npm install React` as React is a node package!! so we will have react dependency in package.json!! also version will be upgraded by npm only!!
+Another way is `npm install React` as React is a node package!! so we will have react dependency in package.json!! also version will be upgraded by npm only!! do not put `-D` here as we need react in normal dependency!!
+
+we used the command 
+
+```json 
+{
+  "name": "namaste_project",
+  "version": "1.0.0",
+  "description": "first project",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "namaste",
+    "project"
+  ],
+  "author": "Mohit",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.15.2",
+    "react": "^19.1.0"
+  }
+}
+
+```
+ >Note: we have removed `  "main": "app.js",` from above json !! as that is not needed with parcel!!we tell what is main file when running the application !! If you not do this then error will come up!!
+
+see here we put react 19 in project!!Can see in package-lock.json too!!Now lwt us install react-dom!!
+use command `npm install react-dom`
+
+```json
+{
+  "name": "namaste_project",
+  "version": "1.0.0",
+  "description": "first project",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "namaste",
+    "project"
+  ],
+  "author": "Mohit",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.15.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
+```
+>Note: sometimes people `npm i <package-name>` ,i is small form of install just!!
+
+
+Now we removed CDN links and run `npx parcel index.html`
+
+now we run out app!!
+
+![alt text](image-2.png)
+
+we need to import 
+
+```javascript
+
+import React from "react";
+import ReactDOM from "react-dom";
+```
+
+the "react" and "react-dom" are folders inside the node-modules so these are dependencies!!
+
+then on run we got this error 
+
+```sh
+× Build failed.
+
+@parcel/transformer-js: Browser scripts cannot have imports or exports.
+
+  C:\Users\user\Desktop\Programs\MERN-stack\Namaste React\Ep-2 Igniting Our App\Code\ex2nestedElements\app.js:8:1
+     7 | // </div>
+  >  8 | import React from "react";
+  >    | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+     9 | 
+    10 | const parent=React.createElement("div"
+  
+  C:\Users\user\Desktop\Programs\MERN-stack\Namaste React\Ep-2 Igniting Our App\Code\ex2nestedElements\IndexByReact.html:8:1
+     7 |   <div id="root"></div>
+  >  8 |   <script src="app.js"></script>
+  >    | ^ The environment was originally created here
+     9 | 
+    10 |   </body>
+
+  ℹ Add the type="module" attribute to the <script> tag.
+  ℹ Learn more: https://parceljs.org/languages/javascript/#classic-scripts
+```
+The `app.js` is treated as Browser-scripts , Browser is thinking js is normal JS ans normal JS does not have import statement so we need to tell that app.js is a module type
+
+The error you're seeing is caused because your JavaScript file (app.js) uses ES module syntax (i.e., import React from "react";), but your HTML is loading it as a classic script using:
+```html
+<script src="app.js"></script>
+```
+Classic scripts do not support import or export statements.
+
+✅ Solution: `Use type="module" in the script tag`
+
+To enable ES module syntax, update your script tag in the HTML file like this:
+```html
+<script type="module" src="app.js"></script>
+```
+
+but see stil getting error!!
+![alt text](image-3.png)
+
+need to put actually 
+
+```javascript
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+```
+
+now working 
+
+![alt text](image-4.png)
+
+>Note :With parcel builds are vry fast!! When we do production build parcel will bundle and minify and optimize our file and compress it too so that we can deploy them on prd!! So react is not only thing making application fast ,Bundler also do many things!! There is file watching algo where if you chnage file build automatically happens!!
+
+Parcel is also not doing everything own it's own ,it has various dependencies who do that!!
+
+Parcel uses Consistent hashing!!
+
+Parcel is also doing Diffrential Bundling!!IF will make you are websit compatible with old browsers!!
+
+
+`Parcel automatically produces a <script type="module"> with modern JavaScript syntax, as well as a fallback <script nomodule> for older browsers when necessary. This reduces bundle sizes for a majority of users by avoiding transpilation of features like classes, async/await, and more. See Differential bundling in the Targets documentation for more details.`
+
+
+
+ Parcel also gives feature to try to host over https!! just do `parcel src/index.html --https`
+
+
+can see documenatation here --> https://parceljs.org/docs/
+
+Parcel do tree shaking too (it removes usused code for you)!!
+
+Parcel have different build for dev nd prod !!
+
+Parcel’s production mode automatically bundles and optimizes your application for production. It can be run using the parcel build command:
+
+`npx parcel build src/index.html`
+
+## dist folder
+
+dist is  automatically generated folder during build having build files!! all the hosted webpage comes from dist folder!! so from dist the website is hosted!!
+
+it has one html ,css, js file!! These are just main files !!! these 3 files are the files having compresed code in just one line!!
+
+parcel_cache is automatically generated too!! so we do not put that in git!! As we can regenerate it!! as we will run all commands on server!!
+
+#### what is hot module Replacement(HMR)?this is we do in next class!!
+
+
+`React just only makes application faster ,it uses many other things like Bundler`
