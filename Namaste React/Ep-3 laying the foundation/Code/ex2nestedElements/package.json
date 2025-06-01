@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "first project",
   "scripts": {
+    "start": "parcel index.html",
+    "runprd": "parcel build index.html",
     "test": "jest"
   },
   "keywords": [
