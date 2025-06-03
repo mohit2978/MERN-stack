@@ -220,6 +220,33 @@ This is we writing CSS inside JS!!
 
 we can also give inside style directly!! see two `{}` 1st one tell inside we have JS and 2nd tell that this is object!!
 
+#### Body
+```jsx
+
+const Body = () => {
+    return (
+        <div className="body">
+            <div className="search-bar"> Search bar</div>
+            <div className="res">
+               <div className="card"><RestuarantCard/></div>
+                <div className="card"><RestuarantCard/></div>
+                <div className="card"><RestuarantCard/></div>
+                <div className="card"><RestuarantCard/></div>
+                <div className="card"><RestuarantCard/></div>
+                <div className="card"><RestuarantCard/></div>
+                <div className="card"><RestuarantCard/></div>
+                <div className="card"><RestuarantCard/></div>
+                <div className="card"><RestuarantCard/></div>
+                <div className="card"><RestuarantCard/></div>
+                <div className="card"><RestuarantCard/></div>
+            </div>
+        </div>
+    )
+};
+
+export default Body;
+```
+#### Restuarant card
 ```jsx
 import './RestuarantCard.css';
 
@@ -253,3 +280,125 @@ when cursor hover over card cursor change to pointer and border will appear!!
 ![alt text](image-6.png)
 
 now card is static ,we want dynamic data!!We can use props for that we know!!
+
+## Dynamic data to each card (props)
+
+props means properties!!
+
+We know functional component is normal JS function!!`like that props are normal arguments to that function!!`
+
+React takes all the argument passed and put it in object and pass to that component!!
+
+```jsx
+
+import RestuarantCard from "./RestuarantCard.jsx";
+import './Body.css';
+
+let resturants=[
+    {
+        "name": "Spice Garden",
+        "cuisines": ["Indian", "Tandoori"],
+        "stars": 4.5,
+        "ETA": 30
+    },
+    {
+        "name": "Sushi Express",
+        "cuisines": ["Japanese", "Sushi"],
+        "stars": 4.2,
+        "ETA": 25
+    },
+    {
+        "name": "Bella Pasta",
+        "cuisines": ["Italian", "Pasta", "Pizza"],
+        "stars": 4.7,
+        "ETA": 40
+    },
+    {
+        "name": "Burger Hub",
+        "cuisines": ["American", "Burgers"],
+        "stars": 3.9,
+        "ETA": 20
+    },
+    {
+        "name": "Green Bowl",
+        "cuisines": ["Healthy", "Salads"],
+        "stars": 4.1,
+        "ETA": 15
+    },
+    {
+        "name": "Dragon Flame",
+        "cuisines": ["Chinese", "Szechuan"],
+        "stars": 4.4,
+        "ETA": 35
+    },
+    {
+        "name": "Taco Fiesta",
+        "cuisines": ["Mexican", "Street Food"],
+        "stars": 4.0,
+        "ETA": 18
+    },
+    {
+        "name": "The Vegan Bite",
+        "cuisines": ["Vegan", "Gluten-Free"],
+        "stars": 4.6,
+        "ETA": 22
+    },
+    {
+        "name": "Royal Biryani",
+        "cuisines": ["Indian", "Biryani"],
+        "stars": 4.3,
+        "ETA": 28
+    },
+    {
+        "name": "Kebab King",
+        "cuisines": ["Middle Eastern", "Grill"],
+        "stars": 4.2,
+        "ETA": 32
+    }
+];
+
+const Body = () => {
+    return (
+        <div className="body">
+            <div className="search-bar"> Search bar</div>
+            <div className="res">
+                {resturants.map((restaurant, index) => (
+                    <div className="card" key={index}>
+                        <RestuarantCard data={restaurant} />
+                    </div>
+                ))}
+
+            </div>
+        </div>
+    )
+};
+
+export default Body;
+```
+
+Note: we use map function for looping in React!!
+
+```jsx
+const RestuarantCard = (props) => {
+    console.log(props)
+    let styleCard={
+        backgroundColor: "#f0f0f0"
+    }
+    return (
+        <div className="res-card" style={styleCard}>
+            <img src="https://www.cubesnjuliennes.com/wp-content/uploads/2023/12/Tawa-Paneer-Masala-1.jpg" alt=""/>
+            <h3>{props.data.name}</h3>
+            <h4>{props.data.cuisines}</h4>
+            <h4>{props.data.stars} Stars</h4>
+            <h4>{props.data.ETA} minutes</h4>
+        </div>
+    )
+}
+```
+
+This is how parsed!!
+
+#### Output 
+
+![alt text](image-7.png)
+
