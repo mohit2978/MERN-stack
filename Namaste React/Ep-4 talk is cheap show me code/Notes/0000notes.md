@@ -402,3 +402,107 @@ This is how parsed!!
 
 ![alt text](image-7.png)
 
+This was way-1  now let us see way -2 of destructuring !! Now we see putting list data here as can see above ,thhis below is how we pass
+
+```jsx
+
+const Body = () => {
+    return (
+        <div className="body">
+            <div className="search-bar"> Search bar</div>
+            <div className="res">
+                {resturants.map((restaurant, index) => (
+                    <div className="card" key={index}>
+                        <RestuarantCard
+                            name={restaurant.name}
+                            cuisines={restaurant.cuisines}
+                            stars={restaurant.stars}
+                            ETA={restaurant.ETA}
+                        />
+                    </div>
+                ))}
+
+            </div>
+        </div>
+    )
+};
+
+export default Body;
+
+```
+Now below can see how we recieve 
+
+```jsx
+const RestuarantCard = ({ name, cuisines, stars, ETA } ) => {
+
+    let styleCard={
+        backgroundColor: "#f0f0f0"
+    }
+    return (
+        <div className="res-card" style={styleCard}>
+            <img src="https://www.cubesnjuliennes.com/wp-content/uploads/2023/12/Tawa-Paneer-Masala-1.jpg" alt=""/>
+            <h3>{name}</h3>
+            <h4>{cuisines}</h4>
+            <h4>{stars} Stars</h4>
+            <h4>{ETA} minutes</h4>
+        </div>
+    )
+}
+
+export default RestuarantCard;
+```
+
+Jsx passed as object and we just destructured it!! even in way-1 can do 
+
+```jsx
+{ name, cuisines, stars, ETA }=props 
+```
+
+way-2 do it implicitly!!!
+
+In the Network tab of your browser’s Developer Tools (DevTools), "Fetch/XHR" refers to network requests made by your web application to retrieve or send data asynchronously — typically to and from a server or API.
+
+🔹 What are XHR and Fetch?
+1. XHR (XMLHttpRequest)
+- Older way to make network requests in JavaScript.
+
+- Used heavily in legacy apps and libraries like jQuery.
+
+- Verbose API.
+
+2. Fetch
+- Modern JavaScript API for making HTTP requests.
+
+- Cleaner syntax, based on Promises.
+
+- Preferred in modern React/JS apps.
+
+
+🔹 In the Network → Fetch/XHR tab, you'll see:
+
+Column--	What It Means
+
+Name--	Name/URL of the request.
+
+Status--	HTTP response code (e.g., 200, 404, 500).
+
+Type--	fetch, xhr, script, etc.
+
+Initiator--	What triggered the request (e.g., a JS file or line of code).
+
+Time--	How long the request took.
+
+Size--	Size of the response payload.
+
+![alt text](image-8.png)
+
+## Config-driven UI!!
+
+When UI is driven by Configs,it is config-driven UI!!
+
+Some offers in bangalore ,some other in Delhi!! we do not have different websites !! Websites are driven by data!! drven by configs!! These configs come from Backend!e.g. Just different background colors based on different locations!!
+
+>Note: A Good Frontend engineer must ask backend devloper why you are sending this data!!Data is very important for Frontend devloper!!
+
+
+
