@@ -10,7 +10,7 @@ Planning needs to be done before building any app!!Do not blindly write code!
 
 This is how our app gonna look like!! This is how we plan structure first!! 
 
-2. components we can have ,we can have 3 major components : header ,body ,footer!!Further Header can have logo ,nav items(Ahome ,about us ,cart)!! Then body we have search , then we will have card container so we have Retuarant container inside that we have Retuarant card !! Then at footer we have copyright ,links ,Adresss and contact !!
+2. components we can have ,we can have 3 major components : header ,body ,footer!!Further Header can have logo ,nav items(Ahome ,about us ,cart)!! Then body we have search , then we will have card container so we have Retuarant container inside that we have Retuarant card which has name of restuarant ,star-rating,cuisine,delivery-date !! Then at footer we have copyright ,links ,Adresss and contact !!
 
 so now let us create vite app in code section!! as using intellij idea ultimate!!It creates gitignore file too for itself!!
 
@@ -64,7 +64,7 @@ in main.jsx app is rendered to root!!
 
 In index.html we have root this html page is rendered when you run app!!
 
-Let us now buikd Headeer ,body,footer component!!
+Let us now build Header ,body,footer component!!
 
 for a component remember structure 
 1. lambda function 
@@ -187,3 +187,69 @@ so put
 #### Output :
 
 ![alt text](image-4.png)
+
+IN JSX we cannot put Inline CSS like we do in HTML !! we need to give it object!!
+As It is an Object so need to put inside `{}`
+```jsx
+import './RestuarantCard.css';
+
+const RestuarantCard = () => {
+
+    let styleCard={
+        backgroundColor: "red"
+    }
+    return (
+        <div className="res-card" style={styleCard}>
+            <img src="https://www.cubesnjuliennes.com/wp-content/uploads/2023/12/Tawa-Paneer-Masala-1.jpg" alt=""/>
+            <h3>food</h3>
+        </div>
+    )
+}
+
+export default RestuarantCard;
+
+```
+
+This is how we give inline CSS
+
+![alt text](image-5.png)
+
+This is we writing CSS inside JS!!
+
+>Note:Inline styles is not recommended way of styling!!
+
+we can also give inside style directly!! see two `{}` 1st one tell inside we have JS and 2nd tell that this is object!!
+
+```jsx
+import './RestuarantCard.css';
+
+const RestuarantCard = () => {
+
+    return (
+        <div className="res-card" style={{
+        backgroundColor: "red"
+    }}>
+            <img src="https://www.cubesnjuliennes.com/wp-content/uploads/2023/12/Tawa-Paneer-Masala-1.jpg" alt=""/>
+            <h3>food</h3>
+        </div>
+    )
+}
+
+export default RestuarantCard;
+
+```
+
+now we can chnage color it will look better !!
+
+```css
+.res-card:hover{
+    cursor: pointer;
+    border: 1px solid black;
+}
+```
+
+when cursor hover over card cursor change to pointer and border will appear!!
+
+![alt text](image-6.png)
+
+now card is static ,we want dynamic data!!We can use props for that we know!!
