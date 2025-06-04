@@ -288,7 +288,7 @@ props means properties!!
 We know functional component is normal JS function!!`like that props are normal arguments to that function!!`
 
 React takes all the argument passed and put it in object and pass to that component!!
-
+###### Way-1
 ```jsx
 
 import RestuarantCard from "./RestuarantCard.jsx";
@@ -404,6 +404,8 @@ This is how parsed!!
 
 This was way-1  now let us see way -2 of destructuring !! Now we see putting list data here as can see above ,thhis below is how we pass
 
+###### Way-2
+
 ```jsx
 
 const Body = () => {
@@ -460,6 +462,17 @@ Jsx passed as object and we just destructured it!! even in way-1 can do
 
 way-2 do it implicitly!!!
 
+
+>Note:Generally we have alot of data in JSON so we pass whole data at once like we did in way-1 and get from props.data!!So what data you are getting you can see by logging that log(props) and fetch out whatever you want!!!
+
+Also you can detructure .data
+
+```jsx
+const { name, cuisines, stars, ETA }=props?.data;
+
+```
+
+
 In the Network tab of your browser’s Developer Tools (DevTools), "Fetch/XHR" refers to network requests made by your web application to retrieve or send data asynchronously — typically to and from a server or API.
 
 🔹 What are XHR and Fetch?
@@ -504,5 +517,66 @@ Some offers in bangalore ,some other in Delhi!! we do not have different website
 
 >Note: A Good Frontend engineer must ask backend devloper why you are sending this data!!Data is very important for Frontend devloper!!
 
+The above Restuarant card we created is config driven UI!! We get that many cards which we get from backend !! so depends on backend!!
 
+### Warning 
 
+`each child in list shiuld have a unique 'key' string`
+
+```jsx
+
+const Body = () => {
+    return (
+        <div className="body">
+            <div className="search-bar"> Search bar</div>
+            <div className="res">
+                {resturants.map((restaurant) => (
+                    <div className="card" >
+                        <RestuarantCard
+                            name={restaurant.name}
+                            cuisines={restaurant.cuisines}
+                            stars={restaurant.stars}
+                            ETA={restaurant.ETA}
+                        />
+                    </div>
+                ))}
+
+            </div>
+        </div>
+    )
+};
+
+export default Body;
+
+```
+
+we need to tell each of items should be uniquely represented . `key` is reserved work!! for now we pass index!!
+
+```jsx
+
+const Body = () => {
+    return (
+        <div className="body">
+            <div className="search-bar"> Search bar</div>
+            <div className="res">
+                {resturants.map((restaurant, index) => (
+                    <div className="card" key={index}>
+                        <RestuarantCard
+                            name={restaurant.name}
+                            cuisines={restaurant.cuisines}
+                            stars={restaurant.stars}
+                            ETA={restaurant.ETA}
+                        />
+                    </div>
+                ))}
+
+            </div>
+        </div>
+    )
+};
+
+export default Body;
+
+```
+
+>Note:so with map always give a key!!

@@ -72,10 +72,7 @@ const Body = () => {
                 {resturants.map((restaurant, index) => (
                     <div className="card" key={index}>
                         <RestuarantCard
-                            name={restaurant.name}
-                            cuisines={restaurant.cuisines}
-                            stars={restaurant.stars}
-                            ETA={restaurant.ETA}
+                            data={restaurant}
                         />
                     </div>
                 ))}
