@@ -1,0 +1,12 @@
+.res {
+    display: flex;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.card{
+    margin: 10px;
+}
+.search-bar{
+    padding: 20px;
+}
