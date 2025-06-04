@@ -580,3 +580,84 @@ export default Body;
 ```
 
 >Note:so with map always give a key!!
+
+If no key is given then React will need to re-render whole data!! but if you give unique id then react needs to render only that component!! so unique key important as need to identify each loop item!!It is big performance hit if you do not write it!!
+
+>Note: React says never index as keys!! as if items change then index also chnage!!
+
+>Note: If no id tehn ask backend to send ids!!Not using keys is not acceptable!! `Not using key(not accepted)  <<<<< index as key(can be used) <<<<<unique key (best)`
+
+
+### Recursing On Children
+By default, when recursing on the children of a DOM node, React just iterates over both lists of children at the same time and generates a mutation whenever there’s a difference.
+
+For example, when adding an element at the end of the children, converting between these two trees works well:
+
+```html
+<ul>
+  <li>first</li>
+  <li>second</li>
+</ul>
+
+<ul>
+  <li>first</li>
+  <li>second</li>
+  <li>third</li>
+</ul>
+```
+React will match the two `<li>first</li>` trees, match the two `<li>second</li> `trees, and then insert the` <li>third</li>` tree.
+
+If you implement it naively, inserting an element at the beginning has worse performance. For example, converting between these two trees works poorly:
+
+```html
+<ul>
+  <li>Duke</li>
+  <li>Villanova</li>
+</ul>
+
+<ul>
+  <li>Connecticut</li>
+  <li>Duke</li>
+  <li>Villanova</li>
+</ul>
+```
+React will mutate every child instead of realizing it can keep the `<li>Duke</li>` and `<li>Villanova</li>` subtrees intact. This inefficiency can be a problem.
+
+#### Keys
+In order to solve this issue, React supports a key attribute. When children have keys, React uses the key to match children in the original tree with children in the subsequent tree. For example, adding a key to our inefficient example above can make the tree conversion efficient:
+
+```html
+<ul>
+  <li key="2015">Duke</li>
+  <li key="2016">Villanova</li>
+</ul>
+
+<ul>
+  <li key="2014">Connecticut</li>
+  <li key="2015">Duke</li>
+  <li key="2016">Villanova</li>
+</ul>
+```
+
+Now React knows that the element with key '2014' is the new one, and the elements with the keys '2015' and '2016' have just moved.
+
+In practice, finding a key is usually not hard. The element you are going to display may already have a unique ID, so the key can just come from your data:
+
+```html
+<li key={item.id}>{item.name}</li>
+```
+When that’s not the case, you can add a new ID property to your model or hash some parts of the content to generate a key. The key only has to be unique among its siblings, not globally unique.
+
+As a last resort, you can pass an item’s index in the array as a key. This can work well if the items are never reordered, but reorders will be slow.
+
+Reorders can also cause issues with component state when indexes are used as keys. Component instances are updated and reused based on their key. If the key is an index, moving an item changes it. As a result, component state for things like uncontrolled inputs can get mixed up and updated in unexpected ways.
+
+### Tradeoffs
+It is important to remember that the reconciliation algorithm is an implementation detail. React could rerender the whole app on every action; the end result would be the same. Just to be clear, rerender in this context means calling render for all components, it doesn’t mean React will unmount and remount them. `It will only apply the differences following the rules stated in the previous sections.`
+
+We are regularly refining the heuristics in order to make common use cases faster. In the current implementation, you can express the fact that a subtree has been moved amongst its siblings, but you cannot tell that it has moved somewhere else. The algorithm will rerender that full subtree.
+
+Because React relies on heuristics, if the assumptions behind them are not met, performance will suffer.
+
+- The algorithm will not try to match subtrees of different component types. If you see yourself alternating between two component types with very similar output, you may want to make it the same type. In practice, we haven’t found this to be an issue.
+- Keys should be stable, predictable, and unique. Unstable keys (like those produced by Math.random()) will cause many component instances and DOM nodes to be unnecessarily recreated, which can cause performance degradation and lost state in child components.
