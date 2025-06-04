@@ -1,10 +1,10 @@
 import './Header.css';
-
+import {LOGO_URL} from '../utils/constants.js'
 const Header = () => {
     return (
         <div className="header">
             <div className="logo">
-                <img src="https://png.pngtree.com/png-vector/20220623/ourmid/pngtree-food-logo-png-image_5296974.png" alt="logo" />
+                <img src={LOGO_URL} alt="logo" />
             </div>
             <div className="navItems">
               <ul>
