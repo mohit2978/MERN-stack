@@ -1,6 +1,7 @@
 import RestuarantCard from "./RestuarantCard.jsx";
 import {useEffect, useState} from "react";
 import './Body.css';
+import Shimmer from "../Shimmer/Shimmer.jsx";
 
 
 const Body = () => {
@@ -12,12 +13,11 @@ const Body = () => {
     const fetchdata = async()=> {
         const data=await fetch("http://localhost:8080/api/res");
         const json=await data.json()
-        console.log(json)
         setResturants(json)
     }
 
     if(resturants.length==0){
-        return <h1>Loading...</h1>
+        return <Shimmer/>
     }
     return (
         <div className="body">
