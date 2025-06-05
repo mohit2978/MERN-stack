@@ -1,14 +1,20 @@
 import RestuarantCard from "./RestuarantCard.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {resturantList} from "../utils/data.jsx"
 import './Body.css';
-
 
 
 const Body = () => {
 
     let [resturants,setResturants]=useState(resturantList);
 
+    useEffect(() => {fetchdata()})
+
+    const fetchdata = async()=> {
+        const data=await fetch("http://localhost:8080/api/res");
+        const json=await data.json()
+        console.log(json)
+    }
     return (
         <div className="body">
             <div className="search-bar"> Search bar</div>
