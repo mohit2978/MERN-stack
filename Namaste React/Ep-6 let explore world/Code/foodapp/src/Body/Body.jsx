@@ -15,6 +15,10 @@ const Body = () => {
         console.log(json)
         setResturants(json)
     }
+
+    if(resturants.length==0){
+        return <h1>Loading...</h1>
+    }
     return (
         <div className="body">
             <div className="search-bar"> Search bar</div>
