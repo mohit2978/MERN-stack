@@ -1,4 +1,4 @@
-export const resturants = [
+export let resturants = [
     {
         name: "Spice Garden",
         cuisines: ["Indian", "Tandoori"],
