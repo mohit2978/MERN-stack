@@ -1,4 +1,4 @@
-export let resturants = [
+export let resturantList = [
     {
         name: "Spice Garden",
         cuisines: ["Indian", "Tandoori"],
