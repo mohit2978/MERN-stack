@@ -1,15 +1,13 @@
 
 import './App.css'
 import Header from "./Header/Header.jsx";
-import Body from "./Body/Body.jsx";
-
-import AboutUs from "./AboutUs/AboutUs.jsx";
+import {Outlet} from "react-router";
 
 function App() {
   return (
     <>
       <Header />
-        <Body/>
+        <Outlet />
     </>
   )
 }
