@@ -8,13 +8,15 @@ public class Restaurant {
     private double stars;
     private int ETA;
     private String imageUrl;
+    private List<MenuItem> menuItems;
 
-    public Restaurant(String name, List<String> cuisines, double stars, int ETA, String imageUrl) {
+    public Restaurant(String name, List<String> cuisines, double stars, int ETA, String imageUrl,List<MenuItem> menuItems) {
         this.name = name;
         this.cuisines = cuisines;
         this.stars = stars;
         this.ETA = ETA;
         this.imageUrl = imageUrl;
+        this.menuItems = menuItems;
     }
 
     public String getName() {
@@ -55,5 +57,13 @@ public class Restaurant {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public List<MenuItem> getMenuItems() {
+        return menuItems;
+    }
+
+    public void setMenuItems(List<MenuItem> menuItems) {
+        this.menuItems = menuItems;
     }
 }

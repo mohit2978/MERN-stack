@@ -1,4 +1,5 @@
 import './RestuarantCard.css';
+import {Link} from "react-router";
 
 const RestuarantCard = (props ) => {
 
@@ -13,7 +14,9 @@ const RestuarantCard = (props ) => {
     return (
         <div className="res-card" style={styleCard}>
             <img src={imageUrl} alt=""/>
-            <h3>{name}</h3>
+            <h3><Link
+                to={`restuarants/${name}`}>
+                {name}</Link></h3>
             <h4>{cuisines.join(", ")}</h4>
             <h4>{stars} Stars</h4>
             <h4>{ETA} minutes</h4>

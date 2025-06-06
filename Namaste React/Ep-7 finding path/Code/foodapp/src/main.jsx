@@ -7,6 +7,7 @@ import AboutUs from "./AboutUs/AboutUs.jsx";
 import ContactUs from "./ContactUs/ContactUs.jsx";
 import ErrorPage from "./Error/Error.jsx";
 import Body from "./Body/Body.jsx";
+import RestaurantDetails from "./Resturant page/RestaurantDetails.jsx";
 
 const appRouter=createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const appRouter=createBrowserRouter([
             {
                 path: "/contact",
                 element:<ContactUs/>
+            },
+            {
+                path:"restuarants/:resName",
+                element:<RestaurantDetails/>
             }
             ],
         errorElement:<ErrorPage/>

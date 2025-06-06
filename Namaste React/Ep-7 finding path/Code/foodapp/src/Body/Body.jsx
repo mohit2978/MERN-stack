@@ -41,7 +41,6 @@ const Body = () => {
                     resturants=resturants.filter(
                         (resturant => resturant.stars>4.0)
                     )
-                    console.log(resturants);
                     setResturants(resturants);
                 }}>
                 Top Rated Resturant</button>
