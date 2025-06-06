@@ -6,4 +6,15 @@
     height:300px;
     background-color:grey;
     margin:20px;
+    animation: shimmerEffect 0.4s infinite alternate;
+}
+
+/* Keyframes to animate background-color */
+@keyframes shimmerEffect {
+    from {
+        background-color: grey;
+    }
+    to {
+        background-color: #4f4f4f; /* dark grey */
+    }
 }
