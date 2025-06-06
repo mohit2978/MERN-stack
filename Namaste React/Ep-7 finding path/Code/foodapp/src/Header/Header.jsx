@@ -1,9 +1,17 @@
 import './Header.css';
 import {LOGO_URL} from '../utils/constants.js'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 const Header = () => {
 
     const [buttonVal,setbuttonVal]=useState('Login');
+
+    const [count,setCount]=useState(0);
+
+    useEffect(() => {
+        console.log("useffect called");
+        setCount(count+1);
+        console.log(count);
+    }, [buttonVal]);
 
     return (
         <div className="header">
