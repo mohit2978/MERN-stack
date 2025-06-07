@@ -1,0 +1,41 @@
+# IntelliJ IDEA specific
+.idea
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Node.js dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*.local
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Build output
+dist/
+build/
+
+# Coverage reports
+coverage/
+
+# Optional npm cache
+.npm/
+
+# IDE settings from other editors
+.vscode/
+
+# Optional lock files (choose the one you're using)
+package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
