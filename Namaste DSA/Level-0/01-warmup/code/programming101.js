@@ -1,36 +1,3 @@
-# Notes 
-
-See Problem then develop solution then write code!! 
-
-1st understand recursion!! always follow order!! Do not try to take shortcut!! 
-
->Note:There will be case when you will get nothing in head!! 
-
-Code is last part of solving problem!! 
-
-7 is a number is js 
-
-"7" is a string in js !! just put double quotes then it will be string!!!
-
-always use let to create variable!!
-
-## const and let differnece 
-
-const cannot be changed but let can be chnaged!!In DSA we use let !! 
-
-we know in additon , String and a number it will be concartenated !!
-
-But in case of differnce differnece will be computed if string is convertible to number 
-
-```js
-console.log("123" - 7);  // 116   (because "123" can be converted to number 123)
-console.log("abc" - 7);  // NaN   (cannot convert "abc" to number)
-
-```
-
-Must see below code  programming 101.js!!
-
-```js
 console.log("Hi Js");
 
 console.log("------------------------------");
@@ -319,6 +286,3 @@ class MinHeap {
 // JavaScript engines implement Map and Set using hash tables internally.
 
 // Because of hashing, operations like insert, lookup, and delete are expected to be constant time on average.
-
-
-```
