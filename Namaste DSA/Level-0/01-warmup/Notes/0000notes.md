@@ -49,9 +49,9 @@ function sum(a,b){
 }
 
 console.log( sum(2,4));
-console.log("------------------------------");
-
-
+```
+Le us see Arrays now
+```js
 let arr = Array(10).fill(-1);
 
 function printArr(arr){
@@ -76,8 +76,13 @@ function print2d(arr){
 
 print2d(arr2d);
 
-console.log("------------------------------");
+```
 
+  `process.stdout.write(val+" ");` does not print a new line but `consol.log()` automatically adds us a new line !! 
+  
+Let us see Strings now 
+
+```js
 let str= "Mohit Kumar Rakheja"
 
 function prtStr1(str){
@@ -107,7 +112,11 @@ console.log();
 prtStr3(str);
 console.log();
 
-console.log("--------------------------------");
+````
+
+Let us see Stack and queue 
+
+```js
 
 //queue 
 
@@ -147,7 +156,10 @@ console.log(stack[stack.length - 1]); // 20
 // Check empty
 console.log(stack.length === 0);  // false
 
-console.log("--------------------------------");
+```
+Let us see Basic linked list now 
+
+```js
 
 //Linkedlist
 class Node {
@@ -184,7 +196,11 @@ list.insertAtHead(30);
 
 list.printList();  // 30 20 10
 
-console.log("--------------------------------");
+```
+
+Let us see map and set now
+
+```js
 
 //Map 
 
@@ -238,9 +254,10 @@ console.log(mySet.size);  // current size of set
 for (let value of mySet) {
     console.log(value);
 }
+```
 
-
-console.log("------------------------------");
+Let us see priorityQueue as js has no inbuilt queue so need to use this
+```js
 
 //No pq here need to write whole code
 
