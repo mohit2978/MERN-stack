@@ -7,7 +7,8 @@ const AboutUs = () => {
         <div>
            <h1>About us</h1>
             <h2>namaste</h2>
-            <UserClass/>
+            <UserCard name={"Mohit Kumar(fn)"} />
+            <UserClass name={"Mohit Kumar(class)"}/>
         </div>
     );
 };

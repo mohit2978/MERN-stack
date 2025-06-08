@@ -100,3 +100,71 @@ Now we want to pass props to class component!!
 
 ### Props in class component
 
+let us show both in the UI!!
+
+![alt text](image-2.png)
+
+ black one functional component and green one class component!!
+
+Now we want to pass props!!
+
+To get props in class based component we need to create constructor and put super(props).
+
+`For using props we need to use this.props.name`
+
+```jsx
+
+class UserClass extends React.Component {
+        constructor(props) {
+            super(props);
+            console.log(props)
+        }
+
+        render() {
+            return (
+                <div className="UserCardClass">
+                    <h3>Name {this.props.name}</h3>
+                    <h3>Location:FBD</h3>
+                </div>
+            )
+        }
+ }
+
+ export default UserClass;
+
+```
+
+This is how we use in class based and below can see in fucntional component!!
+
+```jsx
+const UserCard = ({name}) => {
+    return (
+        <div className="UserCard">
+            <h3>Name :{name}</h3>
+            <h3>Location:FBD</h3>
+        </div>
+    )
+}
+
+export default UserCard;
+```
+ see aboutus.jsx,how we are calling the two components!!
+ ```jsx
+
+const AboutUs = () => {
+
+    return (
+        <div>
+           <h1>About us</h1>
+            <h2>namaste</h2>
+            <UserCard name={"Mohit Kumar(fn)"} />
+            <UserClass  name={"Mohit Kumar(class)"}/>
+        </div>
+    );
+};
+
+export default AboutUs;
+
+```
+![alt text](image-3.png)
+
