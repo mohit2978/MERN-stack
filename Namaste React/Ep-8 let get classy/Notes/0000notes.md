@@ -158,7 +158,7 @@ const AboutUs = () => {
            <h1>About us</h1>
             <h2>namaste</h2>
             <UserCard name={"Mohit Kumar(fn)"} />
-            <UserClass  name={"Mohit Kumar(class)"}/>
+            <UserClass name={"Mohit Kumar(class)"}/>
         </div>
     );
 };
@@ -168,3 +168,65 @@ export default AboutUs;
 ```
 ![alt text](image-3.png)
 
+
+Now similrly we can pass location!!
+
+```jsx
+class UserClass extends React.Component {
+        constructor(props) {
+            super(props);
+            console.log(props)
+        }
+
+        render() {
+            return (
+                <div className="UserCardClass">
+                    <h3>Name {this.props.name}</h3>
+                    <h3>Location:{this.props.location}</h3>
+                </div>
+            )
+        }
+ }
+```
+
+Aboutus component
+
+```jsx
+const AboutUs = () => {
+
+    return (
+        <div>
+           <h1>About us</h1>
+            <h2>namaste</h2>
+            <UserCard name={"Mohit Kumar(fn)"} />
+            <UserClass name={"Mohit Kumar(class)"}
+            location={"FBD"}/>
+        </div>
+    );
+};
+```
+All this things will be combined in one object called props !! now we can even  destructure and get in UserCarcClass!!Like bwelow!!
+
+```jsx
+
+import React from "react";
+
+class UserClass extends React.Component {
+        constructor(props) {
+            super(props);
+            console.log(props)
+        }
+
+        render() {
+
+            const {name,location}=this.props;
+            return (
+                <div className="UserCardClass">
+                    <h3>Name {name}</h3>
+                    <h3>Location:{location}</h3>
+                </div>
+            )
+        }
+ }
+
+```
