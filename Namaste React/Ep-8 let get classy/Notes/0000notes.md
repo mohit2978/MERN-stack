@@ -230,3 +230,77 @@ class UserClass extends React.Component {
  }
 
 ```
+
+We know how to use state varible in Functional component , lt us see how we can use it in Class based component!!
+
+Invoking a function component is same as mounting a fucntional component !!!
+
+Loading a class based component means creating instance of that class!!
+
+so to create state variables in class-based componnts ,we define them in constructor!!Earlier there was no hooks so we use a different way here!!
+
+### State variable in class component
+
+we define it inside a state variable!!
+
+```jsx
+class UserClass extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                count:1,
+            }
+        }
+
+        render() {
+
+            const {name,location}=this.props;
+            return (
+                <div className="UserCardClass">
+                    <h3>Name {name}</h3>
+                    <h3>Location:{location}</h3>
+                    <h4>Count ; {this.state.count}</h4>
+                </div>
+            )
+        }
+ }
+
+
+```
+![alt text](image-4.png)
+
+we can detructure it too !!
+
+we know how to create two or more state variable inside functional component !!Now we want to create multiple  state variable in class based componet so we will create it inside state variable only!! 
+
+```jsx
+import React from "react";
+
+class UserClass extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                count:1,
+                count2:2,
+            }
+        }
+
+        render() {
+
+            const {name,location}=this.props;
+            const{ count,count2 } = this.state;
+            return (
+                <div className="UserCardClass">
+                    <h3>Name {name}</h3>
+                    <h3>Location:{location}</h3>
+                    <h4>Count :{count} count 2 : {count2}</h4>
+                </div>
+            )
+        }
+ }
+
+
+```
+![alt text](image-5.png)
+
+### Updating state variable in Class component
