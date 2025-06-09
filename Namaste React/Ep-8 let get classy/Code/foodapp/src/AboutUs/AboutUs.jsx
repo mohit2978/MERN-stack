@@ -10,7 +10,13 @@ class AboutUs extends React.Component {
     }
 
     componentDidMount() {
+          this.timer=  setInterval(()=>{
+                console.log("hi");
+            },1000);
+    }
 
+    componentWillUnmount() {
+        clearInterval(this.timer);
     }
  render() {
 

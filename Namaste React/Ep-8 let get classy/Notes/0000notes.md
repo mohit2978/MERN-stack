@@ -858,6 +858,16 @@ The sequence is:
 
 - Called after every update, except the first mount.
 
+Let us now see unmount cycle!! Right one!!
+
+`componentWillUnmount()`--> called just before  the component is unmounted from UI!!
+
+`mount means adding to UI !! unmount means removing from UI!`
+
+Although now we use functional component!! not class based component!!
+
+
+
 ## Extras
 Importing component way-1
 
@@ -876,3 +886,105 @@ import {Component} from 'react';
 class UserClass extends Component{
 ```
 
+###  Live batch clip
+
+>Note: Never compare React lifecycle method to functional component ,React Lifecycle is for Class component only!! do not over think !! useEffect is not same as componentDidMount()!!! 
+
+mount ,update and unmount these 3 are different!! at 1st render (this is mount)`componentDidMount()` is called and then we update(after 1st mount every susbequent render is update) `componentDidUpdate()` is called!!
+
+useEffect with empty depedency array called on 1st initial render!! This make life easy ,now develoepr no need to remember lifecycle!! Now in useEffect if we put some dependency ,it will be called on every update of taht dependency , so how to do it in class-based component!!
+
+we used to have `prevProps` and `prevState` and compare prev values and current value!!
+
+>Note:In dependency array if we have more than 1 value than any value change will call the useEffect!!
+
+Now we want to do something if count chnages and do something else when count2 changes so we have 2 useEffect!!
+
+#### Use Case of ComponentWillUnmount()
+
+Will be called when we are leaving page!! We have only 1 page in React!!React devlops SPA (single page application)!! Just single page we are changing component!! 
+
+`ComponentWillUnmount()` is used to Clean up things!!
+
+suppose we do setInterval() after componentDidMount() and in that we print some statement , you will see it will be printed in all components after given interval!!Eachh time you visit that component it will be called more frequently!!!
+
+```jsx
+class AboutUs extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+
+    componentDidMount() {
+            setInterval(()=>{
+                console.log("hi");
+            },1000);
+    }
+ render() {
+
+     return (
+         <div>
+             <h1>About us</h1>
+             <h2>namaste</h2>
+             <UserCard name={"Mohit Kumar(fn)"} />
+             <UserClass name={"Mohit Kumar(class)"}
+                        location={"FBD"}/>
+         </div>
+     );
+ }
+};
+
+export default AboutUs;
+
+```
+See put the above code!!
+
+If you do setTimeout() , the TimeOut be hanging in there even you chnage component!!After certain time ,it will blow up app!! But a junior developer not know this!! This is why we unmount things!! 
+
+so never approve these PR's!! 
+
+so to clear these ,we use clearInterval() in `componentWillUnmount()`!!
+
+```jsx
+
+class AboutUs extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+
+    componentDidMount() {
+          this.timer=  setInterval(()=>{
+                console.log("hi");
+            },1000);
+    }
+    
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+ render() {
+
+     return (
+         <div>
+             <h1>About us</h1>
+             <h2>namaste</h2>
+             <UserCard name={"Mohit Kumar(fn)"} />
+             <UserClass name={"Mohit Kumar(class)"}
+                        location={"FBD"}/>
+         </div>
+     );
+ }
+};
+
+export default AboutUs;
+
+```
+
+this is how you clear ,see how we named the setInterval!!!
+
+Now as we go to any other component ,old timer will stop !! When we come back a new timer will be called !!
+
+
+If we put setInterval in UseEffect , then also it will not stop if we put some other component !! we need to clear the setInterval in useEffect by !!
