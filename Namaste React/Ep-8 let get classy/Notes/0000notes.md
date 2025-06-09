@@ -635,7 +635,228 @@ In functional component,1st component is loaded with basic details then API call
 
 So In class-based component too we first render component then make API call!!It will re-render the compoenent!!
 
+Remember the lifecycle!!
 
+now see  removed logs ,state variable and calling only one time !! can see code !!
+
+```jsx
+
+class AboutUs extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+
+    componentDidMount() {
+
+    }
+ render() {
+
+     return (
+         <div>
+             <h1>About us</h1>
+             <h2>namaste</h2>
+             <UserCard name={"Mohit Kumar(fn)"} />
+             <UserClass name={"Mohit Kumar(class)"}
+                        location={"FBD"}/>
+         </div>
+     );
+ }
+};
+```
+User Class
+
+```jsx
+
+class UserClass extends Component{
+        constructor(props) {
+            super(props);
+
+        }
+
+        componentDidMount(){
+
+        }
+
+        render() {
+            const {name,location}=this.props;
+
+            return (
+                <div className="UserCardClass">
+                    <h3>Name {name}</h3>
+                    <h3>Location:{location}</h3>
+                </div>
+            )
+        }
+ }
+
+ export default UserClass;
+```
+
+Now let us make API call!! let us use github APIs!!
+
+using this API 
+
+```sh
+https://api.github.com/users/mohit2978
+```
+reposne we got 
+
+```json
+{
+  "login": "mohit2978",
+  "id": 47076179,
+  "node_id": "MDQ6VXNlcjQ3MDc2MTc5",
+  "avatar_url": "https://avatars.githubusercontent.com/u/47076179?v=4",
+  "gravatar_id": "",
+  "url": "https://api.github.com/users/mohit2978",
+  "html_url": "https://github.com/mohit2978",
+  "followers_url": "https://api.github.com/users/mohit2978/followers",
+  "following_url": "https://api.github.com/users/mohit2978/following{/other_user}",
+  "gists_url": "https://api.github.com/users/mohit2978/gists{/gist_id}",
+  "starred_url": "https://api.github.com/users/mohit2978/starred{/owner}{/repo}",
+  "subscriptions_url": "https://api.github.com/users/mohit2978/subscriptions",
+  "organizations_url": "https://api.github.com/users/mohit2978/orgs",
+  "repos_url": "https://api.github.com/users/mohit2978/repos",
+  "events_url": "https://api.github.com/users/mohit2978/events{/privacy}",
+  "received_events_url": "https://api.github.com/users/mohit2978/received_events",
+  "type": "User",
+  "user_view_type": "public",
+  "site_admin": false,
+  "name": "Mohit Kumar",
+  "company": "Samsung",
+  "blog": "",
+  "location": "Gurugram",
+  "email": null,
+  "hireable": null,
+  "bio": "SDE@Samsung",
+  "twitter_username": null,
+  "public_repos": 15,
+  "public_gists": 0,
+  "followers": 0,
+  "following": 14,
+  "created_at": "2019-01-27T08:39:42Z",
+  "updated_at": "2025-06-09T06:33:20Z"
+}
+```
+
+https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28#get-a-user
+
+From here you can get APIs!!
+
+Now you remember how we used to do in Functional component!!
+Now see for class component !!
+
+```jsx
+
+class UserClass extends Component{
+        constructor(props) {
+            super(props);
+
+        }
+
+        async componentDidMount(){
+            const data=await fetch("https://api.github.com/users/mohit2978");
+            const json= await data.json();
+            console.log(json);
+        }
+
+        render() {
+            const {name,location}=this.props;
+
+            return (
+                <div className="UserCardClass">
+                    <h3>Name {name}</h3>
+                    <h3>Location:{location}</h3>
+                </div>
+            )
+        }
+ }
+
+ export default UserClass;
+
+```
+
+This is how to make API call!!
+
+![alt text](image-9.png)
+
+ getting result now just need to put in component!!
+
+ Now to update in Ui we will be cerating state variables and removing props!!
+
+
+ ```jsx
+
+class UserClass extends Component{
+        constructor(props) {
+            super(props);
+
+            this.state = {
+                name:"",
+                bio:"",
+                followers:0,
+                following:0,
+            }
+        }
+
+        async componentDidMount(){
+            const data=await fetch("https://api.github.com/users/mohit2978");
+            const json= await data.json();
+            console.log(json);
+            this.setState({
+                name: json.login,
+                bio: json.bio,
+                followers: json.followers,
+                following:json.following,
+            })
+        }
+
+        render() {
+
+            return (
+                <div className="UserCardClass">
+                    <h3>Name {this.state.name}</h3>
+                    <h3>Bio : {this.state.bio}</h3>
+                    <h3>Followers : {this.state.followers}</h3>
+                    <h3> Following : {this.state.following}</h3>
+                </div>
+            )
+        }
+ }
+
+ export default UserClass;
+
+ ```
+
+ ![alt text](image-11.png)
+
+#### How it happend??
+
+- As soon as UserClass is called ,constructor is called and state variable is created with default values!! Then after constructor render happended,so this time Render happens with default value we provided in constructor!!`can put debugger and can see what component loaded with default values`
+
+- Then componentDidMount() was called ,and now APi call was made ,It calls setStaate!! Now mounting cycle done ,updating cycle begins ,see below mid one!! 
+
+
+![alt text](image-10.png)
+
+- Mouting cycle finish when component rendered 1st with dummy data,not wait for API data so user can see something!!when we call setState() updating cycle starts!! setstate() updates state variable and then render() is called again!!Now state variable is updated by new value!! so render() is happening with new data!!
+
+- Now in update cycle Dom is updated!!Now `ComponentDidUpdate()` method is called, just like `ComponentDidMount` !! componentDidUpdate() is called at last!! 
+
+### Summary 
+
+The sequence is:
+- Component is created → mounted → componentDidMount() is called.
+
+    - Happens once, right after the first render.
+
+    - Good place to do API calls or DOM manipulations.
+
+- Later, if props or state change → component updates → componentDidUpdate() is called.
+
+- Called after every update, except the first mount.
 
 ## Extras
 Importing component way-1
