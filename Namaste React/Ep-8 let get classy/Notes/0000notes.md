@@ -304,3 +304,86 @@ class UserClass extends React.Component {
 ![alt text](image-5.png)
 
 ### Updating state variable in Class component
+
+```jsx
+class UserClass extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                count:1,
+                count2:2,
+            }
+        }
+
+        render() {
+
+            const {name,location}=this.props;
+            const{ count,count2 } = this.state;
+            return (
+                <div className="UserCardClass">
+                    <h3>Name {name}</h3>
+                    <h3>Location:{location}</h3>
+                    <h4>Count :{count} count 2 : {count2}</h4>
+                    <button OnClick={()=>{
+                            this.state.count=this.state.count+1;
+                    }}>Click here</button>
+                </div>
+            )
+        }
+ }
+
+```
+
+this is wrong ,never do it like this!! Never put `=` in state variable and then assign some value !!
+
+>Note:Never do it directly!!
+
+so react give a function called as `this.setState()`!!In this method we give object!!
+
+
+```jsx
+
+class UserClass extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                count:1,
+                count2:2,
+            }
+        }
+
+        render() {
+
+            const {name,location}=this.props;
+            const{ count,count2 } = this.state;
+            return (
+                <div className="UserCardClass">
+                    <h3>Name {name}</h3>
+                    <h3>Location:{location}</h3>
+                    <h4>Count :{count} count 2 : {count2}</h4>
+                    <button onClick={()=>{
+                            this.setState({
+                              count:this.state.count+1,
+                                count2:this.state.count2+2,
+                    });
+                    }}>Click here</button>
+                </div>
+            )
+        }
+ }
+
+ export default UserClass;
+
+```
+
+This is how we set both these variables and increment them in class based component!!
+
+Each time component is re-rendered when count is increased!! 
+
+>Note:if we have only updated count and not count2 in setState ,count2 will not be updated !! only the ones we try to update will be updated!!
+
+### Life-cycle of class based component!!
+
+How this class-based component is mounted(loaded) on webpage??
+
+
