@@ -1,0 +1,11 @@
+.UserCard{
+    width:30%;
+    margin:10px;
+    border:1px solid black;
+}
+
+.UserCardClass{
+    width:30%;
+    margin:10px;
+    border:1px solid lawngreen;
+}
