@@ -8,15 +8,15 @@ class UserClass extends Component{
                 count:1,
                 count2:2,
             }
-            console.log("this is the UserClass Component constructor method");
+            console.log("this is the UserClass Component constructor method"+this.props.name);
         }
 
         componentDidMount(){
-            console.log("componentDidMount of UserClass Component");
+            console.log("componentDidMount of UserClass Component"+this.props.name);
         }
 
         render() {
-            console.log("this is the UserClass Component render method");
+            console.log("this is the UserClass Component render method"+this.props.name);
             const {name,location}=this.props;
             const{ count,count2 } = this.state;
             return (

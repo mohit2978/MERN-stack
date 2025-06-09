@@ -21,6 +21,8 @@ class AboutUs extends React.Component {
              <UserCard name={"Mohit Kumar(fn)"} />
              <UserClass name={"Mohit Kumar(class)"}
                         location={"FBD"}/>
+             <UserClass name={"Mohit Kumar2(class)"}
+                        location={"FBD"}/>
          </div>
      );
  }

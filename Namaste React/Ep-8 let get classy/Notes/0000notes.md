@@ -515,7 +515,117 @@ componentDidMount() of child component is called 1st as it is mounted first!! an
 
 If multiple childsthen all childs be mounted first and then parent is mounted!! 
 
-componentDidMount() is called in postorder!! 
+```jsx
+class AboutUs extends React.Component {
+
+    constructor(props) {
+        super(props);
+        console.log("this is the AboutUs Component constructor method");
+    }
+
+    componentDidMount() {
+        console.log("componentDidMount of AboutUs Component");
+    }
+ render() {
+     console.log("this is the AboutUs Component render method");
+     return (
+         <div>
+             <h1>About us</h1>
+             <h2>namaste</h2>
+             <UserCard name={"Mohit Kumar(fn)"} />
+             <UserClass name={"Mohit Kumar(class)"}
+                        location={"FBD"}/>
+             <UserClass name={"Mohit Kumar2(class)"}
+                        location={"FBD"}/>
+         </div>
+     );
+ }
+};
+
+export default AboutUs;
+
+```
+
+![alt text](image-7.png)
+
+See Child class componentDidMount() is called two times !! one for MohitKumar and other for Mohit Kumar2!!
+
+Let us see which children is called first!! 
+
+```jsx
+
+class UserClass extends Component{
+        constructor(props) {
+            super(props);
+            this.state = {
+                count:1,
+                count2:2,
+            }
+            console.log("this is the UserClass Component constructor method"+this.props.name);
+        }
+
+        componentDidMount(){
+            console.log("componentDidMount of UserClass Component"+this.props.name);
+        }
+
+        render() {
+            console.log("this is the UserClass Component render method"+this.props.name);
+            const {name,location}=this.props;
+            const{ count,count2 } = this.state;
+            return (
+                <div className="UserCardClass">
+                    <h3>Name {name}</h3>
+                    <h3>Location:{location}</h3>
+                    <h4>Count :{count} count 2 : {count2}</h4>
+                    <button onClick={()=>{
+                            this.setState({
+                              count:this.state.count+1,
+                                count2:this.state.count2+2,
+                    });
+                    }}>Click here</button>
+                </div>
+            )
+        }
+ }
+
+ export default UserClass;
+```
+
+changed child like the above!!
+
+![alt text](image-8.png)
+
+see how it is called !! 1st constructor ,render of 1 then constructor ,render of 2 then componentDidMount of 1 and then of 2 !! 
+
+We are creating two instances of same class!! All child component componentDidMount happens at end in order of contructor is called!! and then parent DidcomponentMount will be called!!
+
+![alt text](image-10.png)
+
+This react Lifecycle Diagram!! 
+
+First focus on leftmost block ,React component is mounted in 2 phases!!React is fast because of these two phases ,the diff algorithm!!
+
+1. render phase --> onstructor and render is in this phase after that react updates the DOM !!
+
+2. commit phase--> update DOM, once  DOM is updated ,then componentDidMount() is called!!
+
+every component goes to these two phases in React!!
+
+AboutUs let  us call it par and UserClass 1be called as ch1 and 2nd be ch2!!
+
+1st par is mounted !! so it's constructor and render will be called!!
+
+Now it sees ch1 and call constructor and render of it!!  
+
+`Now as we have 2 child so react will batched render phase of 2 child`. So these two child render phase happens 1st!! 
+
+`then commit phased is batched together`
+
+Why it happens? as onc commit phase starts ,React tries to update the DOM , and DOM updation is expensive operation!! In render ,reconciliation happens ,finding diff , updates in virtual DOM!!
+So `render phase is fast as updation in virtual DOM!!` so it batches for all children!! 
+
+`commit phase takes time as actual DOM is updated and it is expensive operation`!! So react treis to update DOM in single batch!!It optimises the performace of react!! 
+
 
 #### Why we have componentDidMount()?
 
@@ -523,10 +633,11 @@ this is used to make API calls .  In Useeffect we used to put empty dependency a
 
 In functional component,1st component is loaded with basic details then API call is made as we do not want to be dependent on API!! 
 
-So In class-based component too we first render component then make API call!!It will re-render the compoenent!! 
+So In class-based component too we first render component then make API call!!It will re-render the compoenent!!
 
 
 
+## Extras
 Importing component way-1
 
 ```jsx
