@@ -1,17 +1,29 @@
 import UserCard from "./UserCard.jsx";
 import UserClass from "./UserClass.jsx";
+import React from "react";
 
-const AboutUs = () => {
+class AboutUs extends React.Component {
 
-    return (
-        <div>
-           <h1>About us</h1>
-            <h2>namaste</h2>
-            <UserCard name={"Mohit Kumar(fn)"} />
-            <UserClass name={"Mohit Kumar(class)"}
-            location={"FBD"}/>
-        </div>
-    );
+    constructor(props) {
+        super(props);
+        console.log("this is the AboutUs Component constructor method");
+    }
+
+    componentDidMount() {
+        console.log("componentDidMount of AboutUs Component");
+    }
+ render() {
+     console.log("this is the AboutUs Component render method");
+     return (
+         <div>
+             <h1>About us</h1>
+             <h2>namaste</h2>
+             <UserCard name={"Mohit Kumar(fn)"} />
+             <UserClass name={"Mohit Kumar(class)"}
+                        location={"FBD"}/>
+         </div>
+     );
+ }
 };
 
 export default AboutUs;

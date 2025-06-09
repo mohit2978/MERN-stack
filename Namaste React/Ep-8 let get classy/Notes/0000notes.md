@@ -386,4 +386,161 @@ Each time component is re-rendered when count is increased!!
 
 How this class-based component is mounted(loaded) on webpage??
 
+When in Aboutus page JSX is rendred ,then it sees class based component then the instance of that class component is needed so we call Class constructor!! 
+
+After constructor then render is called !! Can check by putting log statemnt in both methods!!
+
+This can be complicated when even parent is class based component!! 
+
+1st parent constructor then parent render then child constructor and then child render is called !! it is easy i guess!!
+
+React give another method in Classbased component `componentDidMount()`
+
+```jsx
+class UserClass extends Component{
+        constructor(props) {
+            super(props);
+            this.state = {
+                count:1,
+                count2:2,
+            }
+        }
+
+        componentDidMount(){
+            console.log("componentDidMount");
+        }
+
+        render() {
+
+            const {name,location}=this.props;
+            const{ count,count2 } = this.state;
+            return (
+                <div className="UserCardClass">
+                    <h3>Name {name}</h3>
+                    <h3>Location:{location}</h3>
+                    <h4>Count :{count} count 2 : {count2}</h4>
+                    <button onClick={()=>{
+                            this.setState({
+                              count:this.state.count+1,
+                                count2:this.state.count2+2,
+                    });
+                    }}>Click here</button>
+                </div>
+            )
+        }
+ }
+
+ export default UserClass;
+
+```
+1st constructor then render and then componentDidmoount() is called when component is mounted on DOM!! This is `LifeCycle of class-based component`!! 
+
+Now see we have made AboutUs class component (Parent component)
+
+```jsx
+
+class AboutUs extends React.Component {
+    
+    constructor(props) {
+        super(props);
+        console.log("this is the AboutUs Component constructor method");
+    }
+
+    componentDidMount() {
+        console.log("componentDidMount of AboutUs Component");
+    }
+ render() {
+     console.log("this is the AboutUs Component render method");
+     return (
+         <div>
+             <h1>About us</h1>
+             <h2>namaste</h2>
+             <UserCard name={"Mohit Kumar(fn)"} />
+             <UserClass name={"Mohit Kumar(class)"}
+                        location={"FBD"}/>
+         </div>
+     );
+ }
+};
+
+export default AboutUs;
+```
+Now see child component 
+
+
+```jsx
+
+class UserClass extends Component{
+        constructor(props) {
+            super(props);
+            this.state = {
+                count:1,
+                count2:2,
+            }
+            console.log("this is the UserClass Component constructor method");
+        }
+
+        componentDidMount(){
+            console.log("componentDidMount of UserClass Component");
+        }
+
+        render() {
+            console.log("this is the UserClass Component render method");
+            const {name,location}=this.props;
+            const{ count,count2 } = this.state;
+            return (
+                <div className="UserCardClass">
+                    <h3>Name {name}</h3>
+                    <h3>Location:{location}</h3>
+                    <h4>Count :{count} count 2 : {count2}</h4>
+                    <button onClick={()=>{
+                            this.setState({
+                              count:this.state.count+1,
+                                count2:this.state.count2+2,
+                    });
+                    }}>Click here</button>
+                </div>
+            )
+        }
+ }
+
+ export default UserClass;
+
+```
+In what order statement be printed !!
+
+![alt text](image-6.png)
+
+componentDidMount() of child component is called 1st as it is mounted first!! and then parent!!
+
+If multiple childsthen all childs be mounted first and then parent is mounted!! 
+
+componentDidMount() is called in postorder!! 
+
+#### Why we have componentDidMount()?
+
+this is used to make API calls .  In Useeffect we used to put empty dependency array to make API call only once!!
+
+In functional component,1st component is loaded with basic details then API call is made as we do not want to be dependent on API!! 
+
+So In class-based component too we first render component then make API call!!It will re-render the compoenent!! 
+
+
+
+Importing component way-1
+
+```jsx
+import React from "react";
+
+
+class UserClass extends React.Component {
+```
+way-2 ,destructuring way!!
+
+```jsx
+import React from "react";
+import {Component} from 'react';
+
+class UserClass extends Component{
+```
 
