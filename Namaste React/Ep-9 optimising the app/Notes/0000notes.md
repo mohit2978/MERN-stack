@@ -144,6 +144,136 @@ Working fine!!
 
 ![alt text](image-1.png)
 
+>Here we are just setting JSon ,but in real-time you get the data in json and then json has many other fields except data .generally data is present in json.data field
+
+Now if issue in fetch data then we need to chnage in hook and if deiplay data have issue then chnage in `RestaurantDetails`!!
+
+>Note: you can put custom hooks on npm and publish them as package!! 
+
+Now we want a hook that tells online/offline !!A feature that tells whether the user is online or offline!! We are going to make a custom hook!!
+If interent of user not working then we should display a webpage showing "Pls check your internet"
+
+```jsx
+const useOnlineStatus=()=>{
+    //check online or offline 
+    
+    //return true or false
+}
+
+export default useOnlineStatus;
+
+```
+
+we need to add a event listener once to check online or offline status!!
+To add once we use useEffect with dependency array!!
+
+```jsx
+import {useEffect, useState} from "react";
+
+const useOnlineStatus=()=>{
+    const [onlineStatus,setOnlineStatus]=useState(true)
+
+    //check online or offline
+    useEffect(()=>{
+        console.log("Useffect called")
+
+        const handler = () => {
+            console.log("online called");
+            setOnlineStatus(true);
+        };
+
+        const offlineHandler=()=>{
+            console.log("offline called");
+            setOnlineStatus(false);
+        }
+
+        window.addEventListener('online',handler)
+
+        window.addEventListener('offline',offlineHandler)
+
+    },[]);
+    //return true or false
+    return onlineStatus;
+}
+
+export default useOnlineStatus;
+```
+
+Now in body if offline show Offline page 
+
+```jsx
+
+const Body = () => {
+
+    let [resturants,setResturants]=useState([]);
+
+    const [searchTerm, setSearchTerm] = useState("");
+
+    useEffect(() => {fetchdata()},[])
+
+    const fetchdata = async()=> {
+        const data=await fetch("http://localhost:8080/api/res");
+        const json=await data.json()
+        setResturants(json)
+    }
+
+    const searchdata = async(kw)=> {
+        const data=await fetch(`http://localhost:8080/api/res/search?keyword=${kw}`);
+        const json=await data.json()
+        setResturants(json)
+    }
+
+    const onlineStatus=useOnlineStatus();
+    console.log(onlineStatus)
+    if(onlineStatus===false){
+        return <h1>No interent connection</h1>
+    }
+
+    if(resturants.length==0){
+        return <Shimmer/>
+    }
+    return (
+        <div className="body">
+            <div className="search-bar">
+                <input type="text" className="search-box"       value={searchTerm}
+                       onChange={(e) => setSearchTerm(e.target.value)}/>
+                <button onClick={()=>searchdata(searchTerm)}>Search</button>
+                <button onClick={()=>fetchdata()}>Reset</button>
+            </div>
+            <div className="filter">
+                <button className="filter-btn" onClick={() => {
+                    resturants=resturants.filter(
+                        (resturant => resturant.stars>4.0)
+                    )
+                    setResturants(resturants);
+                }}>
+                Top Rated Resturant</button>
+            </div>
+            <div className="res">
+                {resturants.map((restaurant, index) => (
+                    <div className="card" key={index}>
+                        <RestuarantCard
+                            data={restaurant}
+                        />
+                    </div>
+                ))}
+
+            </div>
+        </div>
+    )
+};
+
+export default Body;
+
+```
+In Hook React recommend word `use` as prefix but it is not mandatory!! 
+
+Read about `Linters` !!used in Industry !! If you do not use `use` keyword in Hook Linters will throw error!! 
+
+we know about Bundlers!! Bundlers like parcel bundles up all files and put in one JS file , but if we have very large application ,now we have alot of components so our final JS file size will increase too!!We need to optimize it!!
+
+we need to break app into smaller pieces !! We will make smaller bundles of our files!! This process is called as `chundking` or `code-spilliting` or `dynamic-bundling` or `lazy-loading`!! 
+
 
 
 

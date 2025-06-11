@@ -2,7 +2,7 @@ import RestuarantCard from "./RestuarantCard.jsx";
 import {useEffect, useState} from "react";
 import './Body.css';
 import Shimmer from "../Shimmer/Shimmer.jsx";
-
+import useOnlineStatus  from "../utils/useOnlineStatus.jsx";
 
 const Body = () => {
 
@@ -24,6 +24,11 @@ const Body = () => {
         setResturants(json)
     }
 
+    const onlineStatus=useOnlineStatus();
+    console.log(onlineStatus)
+    if(onlineStatus===false){
+        return <h1>No interent connection</h1>
+    }
 
     if(resturants.length==0){
         return <Shimmer/>
