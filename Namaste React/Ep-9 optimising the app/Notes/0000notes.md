@@ -272,23 +272,147 @@ Read about `Linters` !!used in Industry !! If you do not use `use` keyword in Ho
 
 we know about Bundlers!! Bundlers like parcel bundles up all files and put in one JS file , but if we have very large application ,now we have alot of components so our final JS file size will increase too!!We need to optimize it!!
 
-we need to break app into smaller pieces !! We will make smaller bundles of our files!! This process is called as `chundking` or `code-spilliting` or `dynamic-bundling` or `lazy-loading`!! 
+we need to break app into smaller pieces !! We will make smaller bundles of our files!! This process is called as `chundking` or `code-spilliting` or `dynamic-bundling` or `lazy-loading` or `On-demand loading`!! 
+
+Now suppose Our app along with delivering foods started grocery delivery!!
+
+We created grocery.jsx 
+
+```jsx
+const Grocery=()=>{
+    return <h1>Grocery</h1>;
+}
+
+export default Grocery;
+
+```
+
+Now need to put in router links !! and also put link in header too!
+
+```jsx
+const Header = () => {
+
+    const [buttonVal,setbuttonVal]=useState('Login');
+
+    const [count,setCount]=useState(0);
+
+    useEffect(() => {
+        console.log("useffect called");
+        setCount(count+1);
+        console.log(count);
+    }, [buttonVal]);
+
+    return (
+        <div className="header">
+            <div className="logo">
+                <img src={LOGO_URL} alt="logo" />
+            </div>
+            <div className="navItems">
+              <ul>
+                  <li>
+                      <Link to={`/`}>Home</Link>
+                  </li>
+                  <li>
+                      <Link to={`/about`}>AboutUs</Link>
+                  </li>
+                  <li>
+                      <Link to={`/contact`}>Contact</Link>
+                  </li>
+                  <li>
+                      <Link to={`/grocery`}>Grocery</Link>
+                  </li>
+                  <li>Cart</li>
+                  <button onClick={()=>{
+                      if (buttonVal == "Login"){setbuttonVal("Logout")}
+                      else setbuttonVal("Login");
+                  }}>{buttonVal}</button>
+              </ul>
+            </div>
+        </div>
+    )
+}
+
+export default Header
+```
 
 
 
+## Do We Get One JS File?
+Default CRA (Create React App)	❌ No — usually gets multiple .js files (e.g., main.js, vendors~main.js, etc.)
+
+With Webpack / Vite + Code Splitting	❌ No — chunks are created (e.g., lazy-loaded components get separate files)
+
+Single Bundle (No optimization)	✅ Yes — possible if everything is bundled into one file manually
+
+React Server Components (React 19)	❌ No — separate chunks for client/server, loaded as needed
 
 
+Still we try to do lazyLoading ,our Grocery JSx comes up when we needed!!
 
 
+```jsx
+
+const Grocery= lazy(()=>
+    import("./Grocery/Grocery.jsx")
+)
+
+const appRouter=createBrowserRouter([
+    {
+        path: "/",
+        element:<App/>,
+        children:[
+            {
+                path: "/",
+                element:<Body/>
+            },
+            {
+            path: "/about",
+            element:<AboutUs/>
+            },
+            {
+                path: "/grocery",
+                element:<Suspense fallback={<h1>hi fallback</h1>}><Grocery/></Suspense>
+            },
+            {
+                path: "/contact",
+                element:<ContactUs/>
+            },
+            {
+                path:"restuarants/:resName",
+                element:<RestaurantDetails/>
+            }
+            ],
+        errorElement:<ErrorPage/>
+    }
+
+]);
+
+createRoot(document.getElementById('root')).render(
+    <RouterProvider router={appRouter}/>
+
+)
 
 
+```
 
+see how we import
 
+```jsx
+const Grocery= lazy(()=>
+    import("./Grocery/Grocery.jsx")
+)
+```
+This makes the component loads lazily!!
 
+As React is fast and page coming is slow so we put suspense and in that we put a fallback jsx that will be shown on screen till main page is loaded!! 
 
-
-
-
+```jsx
+            {
+                path: "/grocery",
+                element:<Suspense fallback={<h1>hi fallback</h1>}><Grocery/></Suspense>
+            },
+```
+In fallback you can give shimmer UI!!
 
 
 
