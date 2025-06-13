@@ -14,7 +14,7 @@ const Header = () => {
     }, [buttonVal]);
 
     return (
-        <div className=" flex h-[150px] border  bg-red-50">
+        <div className=" flex h-[150px] border  bg-red-50 fixed top-0 z-50">
             <div className="rounded-lg">
                 <img className="w-60 h-[140px] object-contain" src={LOGO_URL} alt="logo" />
             </div>

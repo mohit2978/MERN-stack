@@ -86,13 +86,27 @@ just put `justify-between` to show gap in flex-items!!
 
 tailwind is having initial learning curve!! Once you start using CSS more and more in tailwind ,it will be easier!!
 
+use `tailwind Intellisense` Extension in VScode
+
+in tailwind 
+
+sm-small
+
+md-medium
+
+lg- large
+
+xl- extra large 
+
+2xl- double extra large
 
 
+p-padding 
+
+m-margin
 
 
-
-
-
+in `flex` can put `item-center` to put items in center and then can give `gap-<number>` togive gaps between items!!
 
 
 

@@ -7,7 +7,9 @@ function App() {
   return (
     <>
       <Header />
+      <main className="mt-[150px]">
         <Outlet />
+      </main>
     </>
   )
 }
