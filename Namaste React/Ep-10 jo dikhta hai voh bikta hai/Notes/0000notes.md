@@ -128,5 +128,9 @@ Disadvantage--> makes code look ugly if we have to apply a lot of css!!
 
 Tailwind also give pre-build components!!
 
+Always have darkMode is UI !!With tailwind you can put dark mode css by just providing `dark:`!! earlier It was very difficult to have UI dark mode!!
 
 
+You can even have media queries !! for small devices put `sm:`!!
+
+REad all taiwind css feature!!
