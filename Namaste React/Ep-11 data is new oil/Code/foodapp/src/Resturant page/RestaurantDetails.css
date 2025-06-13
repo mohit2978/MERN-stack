@@ -1,0 +1,62 @@
+.restaurant-card {
+    max-width: 800px;
+    margin: 30px auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #f0f0f0, #fafafa);
+    animation: fadeIn 1s ease-in;
+}
+
+.restaurant-info {
+    padding: 20px;
+}
+
+.restaurant-name {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.restaurant-cuisines, .restaurant-rating {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.menu-heading {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    color: #444;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.menu-list {
+    margin-top: 10px;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.menu-price {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
