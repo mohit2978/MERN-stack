@@ -2,12 +2,15 @@ import RestuarantCard from "./RestuarantCard.jsx";
 import {useEffect, useState} from "react";
 import Shimmer from "../Shimmer/Shimmer.jsx";
 import useOnlineStatus  from "../utils/useOnlineStatus.jsx";
+import withPromotionLabel from "./withPromotionLabel.jsx";
 
 const Body = () => {
 
     let [resturants,setResturants]=useState([]);
 
     const [searchTerm, setSearchTerm] = useState("");
+
+    const ResCardPromoted=withPromotionLabel(RestuarantCard);
 
     useEffect(() => {fetchdata()},[])
 
@@ -55,11 +58,17 @@ const Body = () => {
             </div>
             <div className="flex flex-wrap gap-2 p-20">
                 {resturants.map((restaurant, index) => (
-                    <div className="m-4" key={index}>
-                        <RestuarantCard
-                            data={restaurant}
-                        />
-                    </div>
+                        restaurant.promoted === false ?
+                            (
+                                <div className="m-4" key={index}>
+                                    <RestuarantCard data={restaurant}/>
+                                </div>
+                            ) : (
+                                <div className="m-4" key={index}>
+                                    <ResCardPromoted data={restaurant}/>
+                                </div>
+                            )
+
                 ))}
 
             </div>

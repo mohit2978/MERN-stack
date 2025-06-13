@@ -222,7 +222,7 @@ public class foodController {
                     Arrays.asList("Non-veg", "Chicken"),
                     4.8,
                     15,
-                    "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrE6zYRrclAktKpdmWfRF3zdXi2DPxdesyNljv3_pWyDPFnWrodXzLFkX6icJ6PcpGWCQECDpzqVG4NO5gJOWXDJ_WsoUP7__-eb1td0fXvJnSBbs2ci1jvki6vA1NJ8fzBw2rH=s1360-w1360-h1020-rw",
+                    "https://www.allrecipes.com/thmb/8L5gq8V7Kyl3qfoDe5vhCU_rvZI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/AR-141169-Easy-Indian-Butter-Chicken-DDMFS-4x3-beauty-588ff54d1e0f4a0788906e851e27d540.jpg",
                     Arrays.asList(
                             new MenuItem("Chicken Shawarma", 320.0),
                             new MenuItem("Lamb Kebab", 450.0),
