@@ -37,7 +37,7 @@ const ContactUs = () => {
 
     return (
         <div style={containerStyle}>
-            <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Contact Us</h1>
+            <h1 className="text-center" style={{  marginBottom: '30px' }}>Contact Us</h1>
             <div style={formStyle}>
                 <form>
                     <input type="text" placeholder="Your Name" style={inputStyle} required />
@@ -47,14 +47,14 @@ const ContactUs = () => {
                 </form>
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '40px' }}>
-                <h3>Or reach us directly:</h3>
+            <div className="flex flex-col items-center gap-y-2">
+                <h3 >Or reach us directly:</h3>
                 <p>Email: contact@restaurantapp.com</p>
                 <p>Phone: +91 98765 43210</p>
-                <img
+                <img className="mt-20 max-w-150 gap-y-1"
                     src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=800&q=60"
                     alt="Contact Us"
-                    style={{ marginTop: '20px', maxWidth: '100%', borderRadius: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}
+                    style={{borderRadius: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}
                 />
             </div>
         </div>

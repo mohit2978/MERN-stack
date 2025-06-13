@@ -35,14 +35,16 @@ const Body = () => {
     }
     return (
         <div className="body">
-            <div className="search-bar">
-                <input type="text" className="search-box"       value={searchTerm}
+            <div className="p-[20px]">
+                <input type="text" className="bg-white border border-gray-400 rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-50 "       value={searchTerm}
                        onChange={(e) => setSearchTerm(e.target.value)}/>
-                <button onClick={()=>searchdata(searchTerm)}>Search</button>
-                <button onClick={()=>fetchdata()}>Reset</button>
+                <button className="inline-flex items-center  px-4 py-4 m-4 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        onClick={()=>searchdata(searchTerm)}>Search</button>
+                <button className="inline-flex items-center px-4 py-4 m-4 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        onClick={()=>fetchdata()}>Reset</button>
             </div>
-            <div className="filter">
-                <button className="filter-btn" onClick={() => {
+            <div className="p-[20px]" >
+                <button className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 filter" onClick={() => {
                     resturants=resturants.filter(
                         (resturant => resturant.stars>4.0)
                     )
@@ -50,7 +52,7 @@ const Body = () => {
                 }}>
                 Top Rated Resturant</button>
             </div>
-            <div className="res">
+            <div className="res flex flex-wrap gap-2">
                 {resturants.map((restaurant, index) => (
                     <div className="card" key={index}>
                         <RestuarantCard

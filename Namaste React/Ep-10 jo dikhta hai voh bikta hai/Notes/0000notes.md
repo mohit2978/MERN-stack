@@ -9,3 +9,100 @@ MUI gives component out of the box!! They give pre-styled components !! They giv
 Along With MUI ,poeple use bootstrap,tailwind and other CSS frameworks!!
 
 Ant Design is another framework used!!
+
+## Tailwind CSS
+
+Not move to css ,just style in CSS!!
+
+to install we use command `npm install tailwindcss @tailwindcss/vite`
+
+check package.json
+
+```json
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.10",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.6.2",
+    "react-router-dom": "^7.6.2",
+    "tailwindcss": "^4.1.10"
+  },
+```
+
+so tailwind installed!!then in vite.config.js
+
+```js
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from "@tailwindcss/vite";
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react() ,
+          tailwindcss() ,],
+})
+
+```
+In global css we have index.css
+
+```css
+@import "tailwindcss";
+
+.UserCard{
+    width:30%;
+    margin:10px;
+    border:1px solid black;
+}
+
+.UserCardClass{
+    width:30%;
+    margin:10px;
+    border:1px solid lawngreen;
+}
+```
+
+In grocery.jsx let us test 
+
+```jsx
+const Grocery=()=> {
+    return <div className="flex flex-row">
+        <h1 className="bg-teal-300">hi Grocery</h1>
+        <div className="bg-indigo-400 basis-64">01</div>
+        <div className="bg-indigo-400 basis-64">02</div>
+        <div className="bg-indigo-400 basis-128">03</div>
+    </div>
+}
+
+export default Grocery;
+```
+Output:
+
+![alt text](image.png)
+
+Tailwind gives you classname for every CSS you want to write!!
+
+just put `justify-between` to show gap in flex-items!!
+
+
+tailwind is having initial learning curve!! Once you start using CSS more and more in tailwind ,it will be easier!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

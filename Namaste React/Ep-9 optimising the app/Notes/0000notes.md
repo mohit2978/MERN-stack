@@ -412,7 +412,7 @@ As React is fast and page coming is slow so we put suspense and in that we put a
                 element:<Suspense fallback={<h1>hi fallback</h1>}><Grocery/></Suspense>
             },
 ```
-In fallback you can give shimmer UI!!
+In fallback you can give shimmer UI!! or anything you want to display till page is loaded!!
 
 
 
