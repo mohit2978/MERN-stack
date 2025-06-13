@@ -108,15 +108,25 @@ m-margin
 
 in `flex` can put `item-center` to put items in center and then can give `gap-<number>` togive gaps between items!!
 
+x -axis means right and left tailwind use `x` for it
+
+y-axis means top and bottom tailwind use `y` for it
 
 
+![alt text](image-1.png)
 
 
+This is how our page looks now!!
 
+`rounded` to give round corners of button!!
 
+Read tailwind documentation!! 
 
+Advantage --> no need to move between html and css file!!
 
+Disadvantage--> makes code look ugly if we have to apply a lot of css!!
 
+Tailwind also give pre-build components!!
 
 
 

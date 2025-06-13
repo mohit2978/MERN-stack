@@ -10,12 +10,6 @@
     animation: fadeIn 1s ease-in;
 }
 
-.restaurant-image {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
-
 .restaurant-info {
     padding: 20px;
 }

@@ -13,7 +13,7 @@ const RestaurantDetails = () => {
 
     return (
         <div className="restaurant-card">
-            <img src={restaurant.imageUrl} alt={restaurant.name} className="restaurant-image" />
+            <img className="w-full h-[600px] object-cover rounded-2xl" src={restaurant.imageUrl} alt={restaurant.name} />
             <div className="restaurant-info">
                 <h2 className="restaurant-name">{restaurant.name}</h2>
                 <p className="restaurant-cuisines">
