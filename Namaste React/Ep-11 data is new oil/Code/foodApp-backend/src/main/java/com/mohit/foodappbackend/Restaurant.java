@@ -15,6 +15,6 @@ public class Restaurant {
     private double stars;
     private int ETA;
     private String imageUrl;
-    private List<MenuItem> menuItems;
+    private List<Cards> cards;
 
 }

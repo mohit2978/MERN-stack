@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './RestaurantDetails.css';
 import {useParams} from "react-router";
 import useResturantMenu from "../utils/useResturantMenu.jsx";
@@ -9,6 +9,10 @@ const RestaurantDetails = () => {
     const restaurant = useResturantMenu(resName);
     if (!restaurant) return <div>No restaurant selected.</div>;
 
+    console.log(restaurant);
+    const item=restaurant.cards.filter((c)=>{
+        return c.card==="Most Recommended"
+    });
 
 
     return (
@@ -23,7 +27,7 @@ const RestaurantDetails = () => {
 
                 <h3 className="menu-heading">Menu</h3>
                 <div className="menu-list">
-                    {restaurant.menuItems?.map((item, index) => (
+                    {item[0].menuItems?.map((item, index) => (
                         <div key={index} className="menu-item">
                             <span>{item.name}</span>
                             <span className="menu-price">₹{item.price}</span>

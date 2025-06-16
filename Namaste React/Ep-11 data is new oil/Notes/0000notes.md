@@ -147,4 +147,22 @@ Can see Promoted label on top of card!!
 
 ![alt text](image.png)
 
-##
+## Layers of React
+
+One layer is Data Layer and another is UI layer !!
+
+Data Layer is state ,props ,variables!! 
+
+Ui layer is JSX!!
+
+How to manage data is very important!!
+
+Now for menu items we are going to do grouping !! like One group of drinks ,one group of newly Added,One group of recommended!!
+
+Main thing is how to get the relevant data!!
+
+`chnaged backend api's for now ` ,backend sending MenuItems in cards!!
+
+Now we want to have accordian ,UI should be able to close whenever we want and open!!
+
+
