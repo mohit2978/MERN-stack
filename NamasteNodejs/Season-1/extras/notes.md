@@ -1,0 +1,1 @@
+`ctrl+~` to open terminal in VSCode directly!!
