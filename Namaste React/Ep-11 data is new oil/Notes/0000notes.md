@@ -173,3 +173,6 @@ This is what accordian is!!!
 
 We want to show accordian!!!!
 
+`Window +;` for emoji on windows!!
+
+to divide width into half we use w-[6/12] in tailwind as tailwind divides pages into 6 sections so 6 is half of that!!

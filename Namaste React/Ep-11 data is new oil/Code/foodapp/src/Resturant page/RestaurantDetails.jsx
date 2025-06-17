@@ -2,6 +2,7 @@ import React from 'react';
 import './RestaurantDetails.css';
 import {useParams} from "react-router";
 import useResturantMenu from "../utils/useResturantMenu.jsx";
+import ResTaurantCategory from "./ResTaurantCategory.jsx";
 
 const RestaurantDetails = () => {
     const { resName } = useParams();
@@ -28,11 +29,10 @@ const RestaurantDetails = () => {
                 <h3 className="menu-heading">Menu</h3>
 
 
-                <div className="menu-list">
-                    {item[0].menuItems?.map((item, index) => (
-                        <div key={index} className="menu-item">
-                            <span>{item.name}</span>
-                            <span className="menu-price">₹{item.price}</span>
+                <div >
+                    {restaurant.cards?.map((item, index) => (
+                        <div key={index} className="flex space-between">
+                            <div><ResTaurantCategory data={item}/></div>
                         </div>
                     ))}
                 </div>

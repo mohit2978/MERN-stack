@@ -1,5 +1,5 @@
 .restaurant-card {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 30px auto;
     border-radius: 15px;
     overflow: hidden;
@@ -26,35 +26,15 @@
     color: #555;
 }
 
-.menu-heading {
-    margin-top: 20px;
-    font-size: 1.5rem;
-    color: #444;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
-}
+
 
 .menu-list {
     margin-top: 10px;
 }
 
-.menu-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    font-size: 1.1rem;
-    color: #333;
-}
 
-.menu-item:last-child {
-    border-bottom: none;
-}
 
-.menu-price {
-    font-weight: bold;
-    color: #27ae60;
-}
+
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
