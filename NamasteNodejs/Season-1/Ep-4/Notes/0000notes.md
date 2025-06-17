@@ -239,3 +239,106 @@ CJS is default one in nodeJS, so no need of package.json here!!CJS is older way 
 
 ![alt text](<Nodejs ep4_250617_120623_1.jpg>)
 
+When you log `module.exports` you will see an exmpty object!! so some people even write as 
+
+```js
+
+function sumC (a,b){
+    console.log("Hi from sum");
+    
+    return a+b;
+}
+
+ const str="mohit kr";
+ 
+module.exports.sumC=sumC;
+module.exports.str=str;
+
+```
+
+This is also working fine!! so rememeber `module.exports` is empty object!!
+
+## Folder as module
+see calculator folder 
+
+app.js 
+
+```js
+const {sumC}=require ("./sum")
+const multiply=require("./multiply")
+
+console.log(sumC(9,2));
+
+console.log(multiply(9,3));
+
+```
+multiply.js
+
+```js
+const multiply=(a,b)=>{
+    return a*b;
+}
+
+module.exports=multiply;
+
+```
+we are directly exporting multiply so no need to destructure while rewuire!!
+
+sum.js
+```js
+function sumC (a,b){
+    console.log("Hi from sum");
+    
+    return a+b;
+}
+
+
+ 
+module.exports={sumC}
+
+```
+
+for this need destructure!!
+
+see now in calaculato2 folder!!inside thatw have calculate folder now in that see index.js!!
+ just importing and exporting
+```js
+const {sumC}=require ("./sum")
+const multiply=require("./multiply")
+
+module.exports={sumC,multiply};
+
+
+```
+
+see index.js
+
+```js
+const {sumC,multiply}=require("./calculator")
+
+console.log(sumC(3,2));
+
+console.log(multiply(2,5));
+
+```
+we created app.js outside calculator and imported calculator folder!!
+
+![alt text](image-5.png)
+
+see it is working!! when name is index.js you no need to tell which file to require !! it automatically requires index.js from calaculator!!
+
+Now calaculator is a module!! index.js is an abstraction or can say an interface between calculator folder and app.js!!app.js no need to know where sum and multiply is!!
+
+see jsonImport folder
+```js
+const x=require("./data.json")
+
+console.log(x);
+
+```
+
+to import json
+
+There are module present in nodejs!! like util!!
+
+`Module can be single file or can be folder with multiple files!! You can say module is collection of private JS functions!!`
