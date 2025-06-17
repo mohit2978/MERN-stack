@@ -172,10 +172,70 @@ It will give same ourtput as before!!It is clean and neat!!
 
 >Note: Learning : You cannot export function and variable from module unles exported explicitly!! bY default ,Modules are protected!!It protects conflicting variables and function from other modules!!
 
+>Note:In import statement there is no need to add .js extension ,without that it will work !!
 
+This Module pattern is known As Common JS Modules(cjs)
+- Here we have used module.exports and required!!
 
+There ia another pattern called as ES Modules(mjs)!!Here we need package.json!! 
 
+in that we put 
 
+```json
+{
+    "type":"commonjs"
+}
+```
+for cjs or not put as this is default one but for JS we put module in here!!
 
+```json
+{
+    "type":"module"
+}
+```
 
+here we put in sum.js 
+
+```js
+export function sumC (a,b){
+    console.log("Hi from sum");
+    
+    return a+b;
+}
+
+export  const str="mohit kr";
+ 
+
+```
+
+in xyz.js
+
+```js
+import {sumC,str} from "./sum.js"
+
+let x=1;
+let y=2;
+
+console.log("hi from xyz");
+
+console.log( sumC(x,y));
+
+console.log("variable from Object is "+str);
+
+```
+![alt text](image-4.png)
+
+MJS or ES Modules or ESM or ES^ modules uses 
+- import and export 
+- used in Framework in React and angular
+
+CJS is default one in nodeJS, so no need of package.json here!!CJS is older way of doing things!!JS commitee is thinking to make MJS as default one!! But for now we use CJS!!
+
+- CJS require module in synchronous way!! exceutes line by line from top to bottom!!first required one executes line by line and then the current file
+
+- MJS can use async way!
+
+- CJS uses non-strict mode but MJS uses strict mode!!
+
+![alt text](<Nodejs ep4_250617_120623_1.jpg>)
 
