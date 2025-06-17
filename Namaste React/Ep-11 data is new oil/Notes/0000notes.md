@@ -165,4 +165,11 @@ Main thing is how to get the relevant data!!
 
 Now we want to have accordian ,UI should be able to close whenever we want and open!!
 
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+This is what accordian is!!!
+
+We want to show accordian!!!!
 

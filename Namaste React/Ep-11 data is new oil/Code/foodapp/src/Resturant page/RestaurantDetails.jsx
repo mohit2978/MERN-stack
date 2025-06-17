@@ -26,6 +26,8 @@ const RestaurantDetails = () => {
                 <p className="restaurant-rating">⭐ {restaurant.stars} stars</p>
 
                 <h3 className="menu-heading">Menu</h3>
+
+
                 <div className="menu-list">
                     {item[0].menuItems?.map((item, index) => (
                         <div key={index} className="menu-item">
