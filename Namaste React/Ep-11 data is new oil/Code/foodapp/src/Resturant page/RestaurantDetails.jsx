@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './RestaurantDetails.css';
 import {useParams} from "react-router";
 import useResturantMenu from "../utils/useResturantMenu.jsx";
@@ -6,14 +6,10 @@ import ResTaurantCategory from "./ResTaurantCategory.jsx";
 
 const RestaurantDetails = () => {
     const { resName } = useParams();
-
+    const [showIndex, setshowIndex] = useState(-1);
     const restaurant = useResturantMenu(resName);
     if (!restaurant) return <div>No restaurant selected.</div>;
 
-    console.log(restaurant);
-    const item=restaurant.cards.filter((c)=>{
-        return c.card==="Most Recommended"
-    });
 
 
     return (
@@ -32,7 +28,10 @@ const RestaurantDetails = () => {
                 <div >
                     {restaurant.cards?.map((item, index) => (
                         <div key={index} className="flex space-between">
-                            <div><ResTaurantCategory data={item}/></div>
+                            <div><ResTaurantCategory data={item}
+                                                     isOpen={index===showIndex && true }
+                                                     setIndex={()=>setshowIndex((prev) => (prev === index ? null : index))}
+                            /></div>
                         </div>
                     ))}
                 </div>

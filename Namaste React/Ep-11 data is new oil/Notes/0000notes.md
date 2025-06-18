@@ -256,15 +256,158 @@ now we want accordian ,if i open one other one should be closed so there must be
 
 so we give collpase and open power to parent of this !! 
 
- ### Lift the state up
+----
+
+ ## Lift the state up
 Manage which category is open from the parent component, instead of inside each individual accordion.
 
+`When we are controlling from parent then child is called as Controlled Component.`
+
+`When parent have no control then child is called as Uncontrolled component.`
+
+We want at a time only one accordian should be expanded!!
+
+Sometimes we lift state up to parent to control our children!!Now see code
+
+---
+
+#### Child component 
+
+```jsx
+
+const ResTaurantCategory=( props)=>{
+
+    const {card, menuItems} = props.data;
+    const isOpen = props.isOpen;
+    const setShowIndex=props.setIndex;
+
+    const handleClick=()=>{
+        setShowIndex();
+    }
+
+    return <div className=" w-[900px]  border-b-2 border-gray-400 ">
+        {/* Header*/}
+        <div className="flex justify-between py-4 bg-red-50 shadow-lg rounded-lg mx-auto cursor-pointer"
+             onClick={handleClick}>
+            <span className="text-xl font-bold ">{card} ({menuItems.length})</span>
+            <span>{isOpen ? "🔼" : "⬇️"}</span>
+        </div>
+        {isOpen && menuItems.map((item, index) => (
+            <div key={index} >
+               <MenuItems name={item.name} price={item.price} />
+            </div>
+        ))}
+    </div>
+}
+
+export default ResTaurantCategory;
+
+```
+#### Parent component
+
+```jsx
+
+const RestaurantDetails = () => {
+    const { resName } = useParams();
+    const [showIndex, setshowIndex] = useState(-1);
+    const restaurant = useResturantMenu(resName);
+    if (!restaurant) return <div>No restaurant selected.</div>;
 
 
 
+    return (
+        <div className="restaurant-card">
+            <img className="w-full h-[600px] object-cover rounded-2xl" src={restaurant.imageUrl} alt={restaurant.name} />
+            <div className="restaurant-info">
+                <h2 className="restaurant-name">{restaurant.name}</h2>
+                <p className="restaurant-cuisines">
+                    <strong>Cuisines:</strong> {restaurant.cuisines.join(', ')}
+                </p>
+                <p className="restaurant-rating">⭐ {restaurant.stars} stars</p>
+
+                <h3 className="menu-heading">Menu</h3>
 
 
+                <div >
+                    {restaurant.cards?.map((item, index) => (
+                        <div key={index} className="flex space-between">
+                            <div><ResTaurantCategory data={item}
+                                                     isOpen={index===showIndex && true }
+                                                     setIndex={()=>setshowIndex(index)}
+                            /></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default RestaurantDetails;
 
 
+```
+
+used `   const [showIndex, setshowIndex] = useState(-1);` in parent component first!! then see data we are passing into the component !!
 
 
+```jsx
+                <div >
+                    {restaurant.cards?.map((item, index) => (
+                        <div key={index} className="flex space-between">
+                            <div><ResTaurantCategory data={item}
+                                                     isOpen={index===showIndex && true }
+                                                     setIndex={()=>setshowIndex(index)}
+                            /></div>
+                        </div>
+                    ))}
+                </div>
+```
+
+Every `ResTaurantCategory ` has a `index` we know that so we are putting id `showIndex===that index` then we show that component!!
+
+we setting index by `setshowIndex()` function!!
+
+now see child component 
+
+```jsx
+    const isOpen = props.isOpen;
+    const setShowIndex=props.setIndex;
+
+    const handleClick=()=>{
+        setShowIndex();
+    }
+
+    return <div className=" w-[900px]  border-b-2 border-gray-400 ">
+        {/* Header*/}
+        <div className="flex justify-between py-4 bg-red-50 shadow-lg rounded-lg mx-auto cursor-pointer"
+             onClick={handleClick}>
+            <span className="text-xl font-bold ">{card} ({menuItems.length})</span>
+            <span>{isOpen ? "🔼" : "⬇️"}</span>
+        </div>
+
+```
+
+using isOpen from parent!! setShowIndex in child is function which we put on `handleClick()`!!
+
+so when we click `handleClick()` is called, which calls `setShowIndex()` of parent and which sets showIndex to that element's index!! now in parent isopem we se `index===showIndex` and that element whose index will be set as showIndex will set `isOpen=true` and that element will be shown in accordian!!
+
+Now if we open any accordian we not able to close all , so to close all after opening any one use this code in parent 
+
+```jsx
+                <div >
+                    {restaurant.cards?.map((item, index) => (
+                        <div key={index} className="flex space-between">
+                            <div><ResTaurantCategory data={item}
+                                                     isOpen={index===showIndex && true }
+                                                     setIndex={()=>setshowIndex((prev) => (prev === index ? null : index))}
+                            /></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+```
+
+see `setIndex={()=>setshowIndex((prev) => (prev === index ? null : index))}` this line how we check if `prev===index` means last time too we have clicked same index so close all and setShowIndex as null!!
+ 
