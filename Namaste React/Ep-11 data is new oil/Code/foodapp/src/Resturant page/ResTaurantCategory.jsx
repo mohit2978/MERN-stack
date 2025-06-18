@@ -1,4 +1,5 @@
 import {useState} from "react";
+import MenuItems from "./MenuItems.jsx";
 
 const ResTaurantCategory=( props)=>{
 
@@ -13,13 +14,11 @@ const ResTaurantCategory=( props)=>{
         {/* Header*/}
         <div className="flex justify-between py-4 bg-red-50 shadow-lg rounded-lg mx-auto cursor-pointer" onClick={toggleAccordion}>
             <span className="text-xl font-bold ">{card} ({menuItems.length})</span>
-            <span  >⬇️ </span>
+            <span>{isOpen ? "🔼" : "⬇️"}</span>
         </div>
         {isOpen && menuItems.map((item, index) => (
-
-            <div className="flex justify-between w-full m-auto" key={index} >
-                <span className="text-lg">{item.name}</span>
-                <span className="text-lg text-green-600">₹{item.price}</span>
+            <div key={index} >
+               <MenuItems name={item.name} price={item.price} />
             </div>
         ))}
     </div>

@@ -223,3 +223,48 @@ you can add an add button and much more!!
 
 We have toggle !! We click it opens and another click it is closed!!
 
+Now we want If one Accordian is opened all other accordian should be collapsed!!that behavior is called "single open accordion", where opening one section automatically closes the others.
+
+`React dev Tools` is chrome extension that will help you to debug the React code!!It will add two more tab in Developer Console!! `Components` shows components hierarchy!! and other tab is `Profiler`!! `Profiler` records your react App!! 
+
+ What Profiler Shows You:
+- Render Time:
+
+    - How long each component took to render (in milliseconds).
+
+- Re-renders:
+
+    - How many times a component rendered during the profiling session.
+
+- What caused re-renders:
+
+    - Props changed? State changed? It tells you exactly why a render happened.
+
+- Flamegraph and Ranked views:
+
+    - Visual tools to show which components are slowest.
+
+- Helps spot performance bottlenecks.
+
+![alt text](image-5.png)
+
+In components you will be able to see all props you have passed ! you will be able to see all data!!
+
+Our  code starts from App!!
+
+now we want accordian ,if i open one other one should be closed so there must be something that is shared beetween all of them so they know other one is opened!!
+
+so we give collpase and open power to parent of this !! 
+
+ ### Lift the state up
+Manage which category is open from the parent component, instead of inside each individual accordion.
+
+
+
+
+
+
+
+
+
+
