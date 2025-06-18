@@ -410,4 +410,46 @@ Now if we open any accordian we not able to close all , so to close all after op
 ```
 
 see `setIndex={()=>setshowIndex((prev) => (prev === index ? null : index))}` this line how we check if `prev===index` means last time too we have clicked same index so close all and setShowIndex as null!!
- 
+
+## Props Drilling 
+
+`React has one way data-flow (from parent to chilren only)!!`
+Now we want data from parent to grand-grandchilren, how to pass data? we pass through intermediate nodes through parents till it reach to grand-grandchildren!!This is called props-drilling!!
+
+ Now if we have very big react application then?
+
+
+Then we pass to all intermediate nodes?Not a good way!!
+
+`Read about props drilling in React documentation`!!
+
+We should avoid props drilling ,like passing props 5 level down ,1-2 level down is fine!! 
+This is problem in React!!
+
+Solution is `React context`!!
+
+>Note:`React Dev tools` extension you can get in any browser!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
