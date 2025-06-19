@@ -25,7 +25,9 @@ Now we will devlop Cart!! Like we have cart on swiggy!!
  
  We use word `Redux` for `Redux-toolkit` from now!!
 
- 
+ ![alt text](<Namaste React_250620_004154_1.jpg>) 
+ ![alt text](<Namaste React_250620_004154_2.jpg>) 
+ ![alt text](<Namaste React_250620_004154_3.jpg>)
 
 
 
