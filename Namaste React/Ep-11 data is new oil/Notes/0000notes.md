@@ -430,26 +430,362 @@ Solution is `React context`!!
 
 >Note:`React Dev tools` extension you can get in any browser!!
 
+## Context API
+
+Data like loggedIn User details we need across all over the components!!Some piece of data that can be accessed from anywhere !!
 
 
+The Context API has been designed to distribute data from a component to data consumers without explicitly passing props through the whole component tree. This is immensely useful for language settings as well as a global styling schema (Theme).
+
+The Context API consists of two main actors:
+
+- Context Provider
+- Context Consumer
+
+The Provider acts as a central instance for the corresponding data structure, whereas the Consumer can consume this data at any point in the app. It forms a sort of “semi-global” data instance that is only valid in certain parts of the component hierarchy.
+
+This does not mean that the data structure cannot be complex. It is not limited to strings or arrays but can consist of complex data. An application can have an unlimited amount of Contexts (for example, one for the user-chosen language, one for the styling schema, etc.), and Providers can be reused with different values. But let’s take it one step at a time.
+
+generally contetx is not put in components ,we place in utils !!
+
+`const LanguageContext = createContext(defaultValue);` -->TO create context!! 
+eg example 
+
+ In Languagecontext.js
+
+```jsx
+import  {createContext} from 'react';
+
+const LanguageContext = createContext('de');
+export default LanguageContext;
+
+```
+Let us create another context
+
+```jsx
+import  {createContext} from 'react';
+
+const UserContext = createContext({"user":"Default User"});
+
+export default UserContext;
+```
+
+This is provider.CreateContext comes from React. Now to use it we need consumer so see consumer now!!
+
+```jsx
+    const langContext=useContext(LanguageContext);
+    const userContext=useContext(UserContext);
+    const{user} = userContext;
+    return (
+        <div className=" flex h-[150px] w-full border  bg-red-50 fixed top-0 z-50">
+            <div className="rounded-lg">
+                <img className="w-60 h-[140px] object-contain" src={LOGO_URL} alt="logo" />
+            </div>
+            <div className="flex  place-content-between  w-450 py-5">
+              <ul className="flex gap-10  justify-center text-xl p-[10px]">
+                  <li >
+                      <Link to={`/`}>Home</Link>
+                  </li>
+                  <li>
+                      <Link to={`/about`}>AboutUs</Link>
+                  </li>
+                  <li>
+                      <Link to={`/contact`}>Contact</Link>
+                  </li>
+                  <li>
+                      <Link to={`/grocery`}>Grocery</Link>
+                  </li>
+                  <li>Cart</li>
+              </ul>
+                <ul className="flex gap-10  justify-end text-xl py-[10px]">
+                    <li>{user}</li>
+                    <li>Lang:{langContext}</li>
+                </ul>
+                <button className="inline-flex items-center px-4  m-8 border border-blue-300 text-xl font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-blue-300 focus:outline-neutral-500 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        onClick={()=>{
+                            if (buttonVal ==="Login"){setbuttonVal("Logout")}
+                            else setbuttonVal("Login");
+                        }}>{buttonVal}</button>
+            </div>
+        </div>
+    )
+```
+we using `useContext` hook to get the context!! now we can use ot anywhere!!
+
+The useContext() Hook is passed a Context object, which you can create by using `createContext()`. It will then return the value of the next higher-up provider in the component hierarchy. If the value in the Context is changed within the provider, the useContext() Hook will trigger a re-render with the updated data from the provider. That just about sums up the functionality of the useContext() Hook.
+
+Although no props have been passed to the DisplaySelectedLanguage component, it still knows the currently selected language and will also demonstrate this accurately by rendering the following:
+
+If the value within the Provider component changes, all Consumer components will re-render if they are located within the current Provider’s Context.
 
 
+Now in case of class based components we will not be able to use hooks!!So how can i access that!!
 
 
+```jsx
+import UserCard from "./UserCard.jsx";
+import UserClass from "./UserClass.jsx";
+import React from "react";
+import UserContext  from "../utils/UserContext.js";
+
+class AboutUs extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+ render() {
+
+     return (
+         <div>
+             <h1>About us</h1>
+             <h2>namaste</h2>
+            <UserContext.Consumer>
+                {(data)=>console.log(data)}
+             </UserContext.Consumer>
+             <UserCard name={"Mohit Kumar(fn)"} />
+             <UserClass name={"Mohit Kumar(class)"}
+                        location={"FBD"}/>
+         </div>
+     );
+ }
+};
+
+export default AboutUs;
 
 
+```
+
+see consumer we use 
+
+```jsx
+ <UserContext.Consumer>
+                {(data)=>console.log(data)}
+             </UserContext.Consumer>
+```
+Now we need to display it 
+
+```jsx
+import UserCard from "./UserCard.jsx";
+import UserClass from "./UserClass.jsx";
+import React from "react";
+import UserContext  from "../utils/UserContext.js";
+
+class AboutUs extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+ render() {
+
+     return (
+         <div>
+             <h1>About us</h1>
+             <h2>namaste</h2>
+            <UserContext.Consumer>
+                {({user})=><h3>{user}</h3>}
+             </UserContext.Consumer>
+             <UserCard name={"Mohit Kumar(fn)"} />
+             <UserClass name={"Mohit Kumar(class)"}
+                        location={"FBD"}/>
+         </div>
+     );
+ }
+};
+
+export default AboutUs;
+
+```
+![alt text](image-6.png)
+
+---
+
+### Changing value of context
+
+We need to use contextProvider to update the context!!
+
+```jsx
+
+class AboutUs extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+ render() {
+
+     return (
+       <UserContext.Provider value={{user:"Mohit Kumar"}}>
+           <div>
+               <h1>About us</h1>
+               <h2>namaste</h2>
+               <UserContext.Consumer>
+                   {({user})=><h3>{user}</h3>}
+               </UserContext.Consumer>
+               <UserCard name={"Mohit Kumar(fn)"} />
+               <UserClass name={"Mohit Kumar(class)"}
+                          location={"FBD"}/>
+           </div>
+       </UserContext.Provider>
+     );
+ }
+};
+
+export default AboutUs;
+```
+
+we wrap whole JSX inside `UseContext.Provider` !! and provide value of whatever context you want to update!!
+
+>NOte:see we wrapped only About us component so only in aboutUs component value is changed, as can see Heade still shows default value but about us shows `Mohit Kumar` so if you want in whole App value should change , you should wrap whole application with provider in App.js
+
+![alt text](image-7.png)
+
+### Using Multiple context providers 
+
+```jsx
+import React from 'react';
+
+const MyContext = React.createContext('1');
+
+const App = () => (
+  <MyContext.Provider value="1">
+  <MyContext.Provider value="2">
+    <MyContext.Consumer>
+      {(value) => <p>The value is {value}</p>}
+    </MyContext.Consumer>
+  </MyContext.Provider>
+</MyContext.Provider>
+);
+
+export default App;
 
 
+```
+
+The Consumer component gets its data from the most adjacent Context Provider, which is the one passing the value of 2.
+
+Although it does not make sense to nest the same Context Providers within each other, it is not uncommon or incorrect to use different Context Providers within each other. An application can consist of a Theme Provider, a Language Provider, and an Account Provider. The latter would take care of data handling for logged-in users and manage access tokens or user-specific settings.
+
+>Note: To whatever you want to chnage wrap it with provider 
+
+suppose code is like just pseudo code!!
+
+```jsx
+<provider value={{user:"Mohit Kumar"}}>
+ <provider value={{user:"Elon Musk"}}>
+    <Header/>
+</provider>
+<app/>
+</provider>
+```
+
+Now in header value be `Elon Musk` and in app value be  `Mohit Kumar`
+
+Now let us try to change value by Input Box!!!
+ see In app we giving setFunction too to all components!!
+```jsx
+
+function App() {
+
+    const [user, setUser] = useState("Mkr");
+
+    useEffect(() => {
+        setUser("Deepak");
+    },[])
+  return (
+  <UserContext.Provider value={{user,setUser}}>
+      <>
+          <Header />
+          <main className="mt-[150px]">
+              <Outlet />
+          </main>
+      </>
+  </UserContext.Provider>
+  )
+}
+```
+Now in userCard changing user using SetUser receieved by app 
+
+```jsx
+
+const UserCard = ({name}) => {
+
+    const userProp=useContext(UserContext);
+    const {user,setUser}=userProp;
+    console.log("user props is");
+    console.log(userProp)
+    console.log(setUser);
 
 
+    return (
+        <div className="UserCard">
+            <h3>Name :{name}</h3>
+            <h3>Location:FBD</h3>
+            <div>
+                <input className={"border border-red-700"} type="text" placeholder="Your Email"
+                       value={user}
+                onChange={(e) => setUser(e.target.value)}/>
+            </div>
+        </div>
+    )
+}
+
+```
+
+for userCard to recieve setUser you must remove provider from AboutUs component !!
+
+```jsx
+class AboutUs extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+ render() {
+
+     return (
+       // <UserContext.Provider value={{user:"Mohit Kumar"}}>
+           <div>
+               <h1>About us</h1>
+               <h2>namaste</h2>
+               <UserContext.Consumer>
+                   {({user})=><h3>{user}</h3>}
+               </UserContext.Consumer>
+               <UserCard name={"Mohit Kumar(fn)"} />
+               <UserClass name={"Mohit Kumar(class)"}
+                          location={"FBD"}/>
+           </div>
+       // </UserContext.Provider>
+     );
+ }
+};
+
+export default AboutUs;
 
 
+```
+if we do not remove then 
 
+You're only providing:
+`{ user: "Mohit Kumar" }`
+But UserCard expects both:
+`{ user, setUser }`
+When you do:
 
+`const { user, setUser } = useContext(UserContext);`
+setUser will be undefined, causing errors when you try to call it.
 
+so better to comment in AboutUs
 
+---
 
+when using `Redux` we do not need `context` ,both create same thing!! 
+Redux is state management library ,not in React need to do `npm install` but context is in React!! 
 
+No need of Redux for small application!! 
 
+In large application we can use `context` too but!!
+Redux has became common pattern and widely used!! 
 
-
+Redux offers a lot!! 
