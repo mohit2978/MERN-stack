@@ -30,9 +30,30 @@ Now we will devlop Cart!! Like we have cart on swiggy!!
  ![alt text](<Namaste React_250620_004154_3.jpg>)
 
 
+## What we gonna do?
 
+ ####  Redux ToolkitAdd commentMore actions
+  - Install @reduxjs/toolkit (@ and / are there in name of RTK library) and react-redux (2libraries to install)
+  - Build our store
+  - Connect our store to our app
+  - Slice (cartSlice)
+  - dispatch(action) --> to write to Store
+  - Selector --> to read from Store
 
+installed both see package.json 
 
+```json
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
+    "@tailwindcss/vite": "^4.1.10",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
+    "react-router": "^7.6.2",
+    "react-router-dom": "^7.6.2",
+    "tailwindcss": "^4.1.10"
+  },
+```
 
 
 
