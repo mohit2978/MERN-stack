@@ -54,10 +54,213 @@ installed both see package.json
     "tailwindcss": "^4.1.10"
   },
 ```
+So now we build our stor inside utils!! Noww we need to create Store!!
+
+we put store in utils!!
+
+```jsx
+import { configureStore } from "@reduxjs/toolkit";
+// import cartReducer from "./cartSlice";
+
+const appStore = configureStore({
+    // reducer: {
+    //     cart: cartReducer,
+    // },
+});
+
+export default appStore;
+
+```
+
+We use `configureStore()` function to create store that comes from `RTK`!! Inside store we add slices!! See Commented part!!
+
+Now let us provide store to Application!! so in app.jsx!! So put entire application under Provider !!
+
+```jsx
+import {Provider} from "react-redux";
+
+function App() {
+
+    const [user, setUser] = useState("Mkr");
+
+    useEffect(() => {
+        setUser("Deepak");
+    },[])
+  return (
+      <Provider store={appStore}>
+          <UserContext.Provider value={{user,setUser}}>
+              <>
+                  <Header />
+                  <main className="mt-[150px]">
+                      <Outlet />
+                  </main>
+              </>
+          </UserContext.Provider>
+      </Provider>
+  )
+}
+```
+Provider is from React-Redux and in store we tell store!! Provider comes from react-redux as it acts as bridge ,RTK just create store to put store to React we use React-redux!!
+
+creating store is `RTK` job but providing Store to react is `react-rddux` job!!
+
+In Provider we provide `appStore` a sProvider !! If you want a portion of app to have redux not whole application put that part in `Provider`!!
+
+Now lwt us create cartSlice!! We putting it in utils!!
+
+`createSlice()` comes from reduxjs is used to from redux !! It takes configurations !!
+
+1. name --> let us name as cart
+
+2. Initial state -->inital state of slice
+
+3. Reducers --> correspoding to action we put reducer function!!
+
+action is cart 
+
+- addItem 
+- removeItem 
+- clearCart
 
 
+each of this has reducer function!! Each function has access to `state` and `action`!! let us take an example from counter!!
 
+```js
+import { createSlice } from '@reduxjs/toolkit';
 
+// Initial state
+const initialState = {
+  count: 0,
+};
 
+// Create the slice
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState,
+  reducers: {
+    increment(state) {
+      state.count += 1; // Immer allows direct state mutation
+    },
+    decrement(state) {
+      state.count -= 1;
+    },
+    incrementByAmount(state, action) {
+      state.count += action.payload;
+    },
+  },
+});
 
+// Export actions
+export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 
+// Export reducer
+export default counterSlice.reducer;
+```
+>Here we export actions as weel as reducers both
+
+- action is an object passed into the reducer that tells it what to do.
+
+- action.type is mandatory.
+
+- action.payload is optional — for passing data (e.g. amounts, user info, etc.)
+
+## How to use it 
+
+tell configuerer about reducer
+
+```js
+import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from './counterSlice';
+
+const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+  },
+});
+```
+
+Use in react component 
+
+```jsx
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { increment, decrement, incrementByAmount } from './counterSlice';
+
+const Counter = () => {
+  const count = useSelector((state) => state.counter.count); //state.sliceName.dataName
+  const dispatch = useDispatch();
+
+  return (
+    <div>
+      <h2>{count}</h2>
+      <button onClick={() => dispatch(increment())}>+1</button>
+      <button onClick={() => dispatch(decrement())}>-1</button>
+      <button onClick={() => dispatch(incrementByAmount(5))}>+5</button>
+    </div>
+  );
+};
+
+export default Counter;
+
+```
+### Can You Write a Reducer Without state and action?
+Technically, you must include both state and action in the reducer function signature — even if you’re not using them.
+
+✅ Why? Because:
+
+- Redux always calls the reducer with (state, action)
+
+- If you omit one, you may get an error or unexpected behavior.
+
+Now back to cart example !!
+
+```js
+import { createSlice} from "@reduxjs/toolkit";
+
+const cartSlice = createSlice({
+    name: "cart",
+    initialState: {
+        items: [],
+    },
+    reducers: {
+        addItem: (state, action) => {
+            state.items.push(action.payload);
+        },
+        removeItem: (state, action) => {
+            state.items.pop();
+        },
+        clearCart: (state, action) => {
+            return { items: [] };
+        },
+    },
+});
+
+export const { addItem, removeItem, clearCart } = cartSlice.actions;
+
+export default cartSlice.reducer;
+```
+
+#### How these  two export working??
+
+cartSlice is big Object having `actions` and `reducers` in the cartSlice!! so we exporting both from the cartSlice!!
+
+whatever we pass to state ,we put in payload!!
+
+This is our cartSlice Reducer!!
+
+now in appStore we tell about this reducer
+
+```jsx
+import { configureStore } from "@reduxjs/toolkit";
+import cartReducer from "./cartSlice";
+
+const appStore = configureStore({
+    reducer: {
+        cart: cartReducer,
+    },
+});
+
+export default appStore;
+
+```
+This is how we add slice to store!! For each slice we have We have reducer in Store!! Here reducer in store is big reducer for our whole app!!

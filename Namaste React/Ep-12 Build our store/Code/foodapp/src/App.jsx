@@ -4,6 +4,8 @@ import Header from "./Header/Header.jsx";
 import {Outlet} from "react-router";
 import {useEffect, useState} from "react";
 import UserContext from "./utils/UserContext.js";
+import appStore from "./utils/appStore.js";
+import {Provider} from "react-redux";
 
 function App() {
 
@@ -13,14 +15,16 @@ function App() {
         setUser("Deepak");
     },[])
   return (
-  <UserContext.Provider value={{user,setUser}}>
-      <>
-          <Header />
-          <main className="mt-[150px]">
-              <Outlet />
-          </main>
-      </>
-  </UserContext.Provider>
+      <Provider store={appStore}>
+          <UserContext.Provider value={{user,setUser}}>
+              <>
+                  <Header />
+                  <main className="mt-[150px]">
+                      <Outlet />
+                  </main>
+              </>
+          </UserContext.Provider>
+      </Provider>
   )
 }
 
