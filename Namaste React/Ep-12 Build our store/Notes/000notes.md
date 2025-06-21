@@ -446,6 +446,8 @@ This immediately calls handleAddItem(item) during render, and sets onClick to wh
 ❌ Wrong ❌
 Same mistake as (2) — the function runs at render, not on click.
 
+## Add total to cart
+
 Now added total at end of cart .for total we use reduce function 
 
 ```jsx
@@ -499,3 +501,208 @@ export default Cart;
 ```
 
 ![alt text](image.png)
+
+## Things to consider
+
+`const cartItems = useSelector((store) => store.cart.items);`
+
+Always get what is needed in cartItems do not get whole store and then cart
+
+❌ below one is wrong
+
+```jsx
+const store = useSelector((store) => store);
+const cartItems=store.cart.items
+```
+This is very less Efficient!!This makes update the component on every change in store !! but we do not want that !! we want to get updates of cart slice only!
+
+In appstore we have `reducer`
+
+```jsx
+const appStore = configureStore({
+    reducer: {
+        cart: cartReducer,
+    },
+});
+
+export default appStore;
+```
+one big reducer but in Slice we have multiple small reducers!!
+
+```jsx
+const cartSlice = createSlice({
+    name: "cart",
+    initialState: {
+        items: [],
+    },
+    reducers: {
+        addItem: (state, action) => {
+            state.items.push(action.payload);
+            console.log(state.items);
+            console.log("Items array:", [...state.items]);
+
+        },
+        removeItem: (state, action) => {
+            console.log(state);
+            console.log(action.payload);
+            state.items.pop();
+        },
+        clearCart: (state, action) => {
+            console.log(state.items);
+            return { items: [] };
+        },
+    },
+});
+
+export const { addItem, removeItem, clearCart } = cartSlice.actions;
+
+export default cartSlice.reducer;
+```
+At end of Slice ,we returning one reducer which is combination of these small reducers!!
+
+- when we used to use `vanilla redux` we was not meant to mutate the state!!`state.items.push(action.payload);` was not allowed in `vanilla redux`!! We used to create a copy and push to that copy!!
+
+  ```jsx
+  const newState=[...state]
+  newState.items.push(action.payload);
+  return newState
+  ```
+
+and return that newState!!
+
+A lot of developers used to modify state ,but in RTK we got option to make change to state!! 
+And no need to return now!!
+
+Redux uses `Immer.js` library which create copy of state update to that and then create immutable state which is returned!!
+
+In clearCart 
+
+### ✅ Correct ✅
+```jsx
+        clearCart: (state, action) => {
+            console.log(state.items);
+            return { items: [] };
+        },
+
+```
+### 
+❌ Wrong ❌
+```jsx
+        clearCart: (state, action) => {
+           state=[];
+        },
+
+```
+
+In Redux Toolkit (which uses Immer internally), the state parameter is not the actual state object, but a draft. You can mutate the draft directly (e.g., push items, change properties), but you cannot reassign it like this.
+
+This just changes the local reference of state inside the reducer — it does not change the actual Redux store state.
+
+---
+Immer can be used in any context in which immutable data structures need to be used. For example in combination with React state, React or Redux reducers, or configuration management. Immutable data structures allow for (efficient) change detection: if the reference to an object didn't change, the object itself did not change. In addition, it makes cloning relatively cheap: Unchanged parts of a data tree don't need to be copied and are shared in memory with older versions of the same state.
+
+Generally speaking, these benefits can be achieved by making sure you never change any property of an object, array or map, but by always creating an altered copy instead. In practice this can result in code that is quite cumbersome to write, and it is easy to accidentally violate those constraints. Immer will help you to follow the immutable data paradigm by addressing these pain points:
+
+- Immer will detect accidental mutations and throw an error.
+- Immer will remove the need for the typical boilerplate code that is needed when creating deep updates to immutable objects: Without Immer, object copies need to be made by hand at every level. Typically by using a lot of ... spread operations. When using Immer, changes are made to a draft object, that records the changes and takes care of creating the necessary copies, without ever affecting the original object.
+- When using Immer, you don't need to learn dedicated APIs or data structures to benefit from the paradigm. With Immer you'll use plain JavaScript data structures, and use the well-known mutable JavaScript APIs, but safely.
+
+>Basically old state is never chnaged a copy of that is changed and that copy is assigned to state each time we update!!
+
+🧠 Step-by-Step View
+- You dispatch an action to Redux:
+
+  ```js
+  dispatch(updateName("Mohit"));
+
+  ```
+- Redux Toolkit gives your reducer a draft copy (proxy) of the current state:
+
+  ```js
+  updateName: (state, action) => {
+      state.user.name = action.payload; // Looks like a mutation
+  }
+  ```
+- Immer tracks changes made to the draft.
+
+- Immer builds a new state object, with:
+
+    - Only the parts that changed copied.
+
+- Unchanged parts reused from the old state.
+
+- Redux replaces the old state in the store with this new version.
+
+when you do `state=[]`
+
+This just rebinds the local variable state to a new array. You're not modifying the draft — you're just saying:
+
+`"Hey, now this variable state points to this new array instead."` State is a local variable!!
+
+But Immer is still tracking the original proxy, and you’re no longer interacting with it.
+
+So:
+
+- No mutation happened to the draft ✅
+
+- No new state will be produced ❌
+
+- The change is ignored completely ❌
+
+#### ✅ state.length = 0 — Why It Works
+This is a mutation of the draft array (proxy).
+
+```js
+state.length = 0;
+```
+This tells Immer:
+
+`“Hey, this draft array’s contents have changed — clear it out.”`
+
+Because Immer is still tracking the draft, it knows how to:
+
+- Create a new copy of the array
+
+- Remove all its contents
+
+- Return a new state that’s empty
+
+✅ return [] — Why It Also Works
+This is another correct way, because:
+
+- If you return a new value from the reducer, Redux Toolkit knows to use that as the new state.
+
+- Immer bypasses the draft and replaces the state directly.
+
+return [] doesn’t mutate the draft — it completely replaces it.
+
+That’s allowed, because Immer (and Redux Toolkit) says:
+
+`"If the reducer returns a new value, I’ll use that as the new state — and completely ignore the draft."`
+
+This is intentional behavior supported by Immer.
+
+---
+### Reading state for log
+
+we can not directly read state  so cannot do `console.log(state)` as state is a proxy object!!
+
+Instead do `console.log(currrent(state))`!!
+
+when you do state=[] and do log state you will see empty state but cart will not be empty as this change is made in local state!!Original state is not chnaged!!
+
+### RTK says either mutate a existing state or return a new state!! so return [] works well!
+
+in our case we need to return 
+
+```js 
+ return { items: [] };
+ ```
+
+ as we want empty items!!
+
+ ## Redux dev tools
+
+ another extension for debugging!!!
+
+ It gives trace too where we have called!!
