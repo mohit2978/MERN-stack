@@ -240,6 +240,9 @@ export const { addItem, removeItem, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
 ```
 
+In above reducers we are modifying the state directly !!
+
+
 #### How these  two export working??
 
 cartSlice is big Object having `actions` and `reducers` in the cartSlice!! so we exporting both from the cartSlice!!
@@ -264,3 +267,146 @@ export default appStore;
 
 ```
 This is how we add slice to store!! For each slice we have We have reducer in Store!! Here reducer in store is big reducer for our whole app!!
+
+Now we have added link for cart created cart componnet and at header linked cart component !!
+
+in main.jsx
+
+```jsx
+
+            },
+            {
+                path: "/cart",
+                element: <Cart />,
+            },
+            
+ ```
+
+In header
+
+```jsx
+                  </li>
+                  <li className="px-4 font-bold text-xl">
+                      <Link to="/cart">Cart - ({cartItems.length} items)</Link>
+                  </li>
+              </ul>
+```
+
+to get cart items from store in header
+
+```jsx
+    const cartItems = useSelector((store) => store.cart.items);
+    console.log(cartItems);
+```
+
+See cart.jsx
+
+```jsx
+const Cart = () => {
+    const cartItems = useSelector((store) => store.cart.items);
+
+    console.log(cartItems);
+
+    const dispatch = useDispatch();
+
+    const handleClearCart = () => {
+        dispatch(clearCart());
+    };
+
+    return (
+        <div className="text-center m-4 p-4">
+            <h1 className="text-2xl font-bold">Cart</h1>
+            <div className="w-6/12 m-auto">
+                <button
+                    className=" p-2 m-2 bg-black text-white rounded-lg"
+                    onClick={handleClearCart}
+                >
+                    Clear Cart
+                </button>
+                {cartItems?.length === 0 && (
+                    <h1> Cart is empty. Add Items to the cart!</h1>
+                )}
+
+                {cartItems?.length !== 0  && cartItems.map((item, index) => (
+                    <div key={index} >
+                        <MenuItems name={item.name} price={item.price} />
+                    </div>
+                ))}
+
+            </div>
+        </div>
+    );
+};
+
+export default Cart;
+```
+
+now to clearCart we dispatch of clearCart()!!
+
+MenuItems add items to cart 
+
+```jsx
+
+
+const MenuItems=({name,price})=>{
+
+    const dispatch = useDispatch();
+    const handleAddItem = () => {
+        dispatch(addItem({name : name,price : price}));
+    };
+
+    return (
+        <div className="flex items-center w-full my-4 px-4" >
+            <span className="flex-1 text-lg">{name}</span>
+            <span className="flex-1 text-lg text-green-600 my-4 text-center">₹{price}</span>
+            <button
+                className="p-2 mx-16 my-4 rounded-lg bg-red-300 text-white shadow-lg cursor-pointer"
+                onClick={() => handleAddItem()} >
+                    Add +
+            </button>
+        </div>
+    )
+
+}
+export default MenuItems;
+```
+
+useSelector() is a hook!!It comes from react-redux library!!! useSelector helps to subscribe to store!!
+
+`const cartItems = useSelector((store) => store.cart.items);`--> tells which part of store we need to access!!
+
+now cartItems has data of store.Items!!
+
+in slice when you do `console.log(state)` it prints just proxy object .state is a Proxy (because of Immer.js) So logging it like console.log(state) may not show updated changes immediately.
+to print state use `console.log("Items array:", [...state.items]);`
+
+this is how we dispatch an item 
+
+```jsx
+  const dispatch = useDispatch();
+   const handleClearCart = () => {
+        dispatch(clearCart());
+    };
+```
+To dispatch we need `useDispatch()` hook!!
+LEt us see another example!!
+```jsx
+    const dispatch = useDispatch();
+    const handleAddItem = () => {
+        dispatch(addItem({name : name,price : price}));
+    };
+```    
+the item we passing is `action.payload` in reducers!!
+
+```jsx
+        addItem: (state, action) => {
+            state.items.push(action.payload);
+            console.log(state.items);
+            console.log("Items array:", [...state.items]);
+
+        },
+```        
+to put anything or update  on store  we use `dispatch()` and in dispatch we give action!!
+
+to call reducers we call by `dispatch(action(...))` and in slice we have fucntion corresponding to every action!!Like above you can see function corresponding to addItem action!!
+

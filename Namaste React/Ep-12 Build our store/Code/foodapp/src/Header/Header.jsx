@@ -3,11 +3,14 @@ import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router";
 import LanguageContext from "../utils/LanguageContext.js";
 import UserContext from "../utils/UserContext.js";
+import {useSelector} from "react-redux";
 const Header = () => {
 
     const [buttonVal,setbuttonVal]=useState('Login');
 
     const [count,setCount]=useState(0);
+
+    const cartItems = useSelector((store) => store.cart.items);
 
     useEffect(() => {
         setCount(count+1);
@@ -35,7 +38,9 @@ const Header = () => {
                   <li>
                       <Link to={`/grocery`}>Grocery</Link>
                   </li>
-                  <li>Cart</li>
+                  <li className="px-4 font-bold text-xl">
+                      <Link to="/cart">Cart - ({cartItems.length} items)</Link>
+                  </li>
               </ul>
                 <ul className="flex gap-10  justify-end text-xl py-[10px]">
                     <li>{user}</li>
