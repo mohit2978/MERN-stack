@@ -7,7 +7,7 @@ const Cart = () => {
     const cartItems = useSelector((store) => store.cart.items);
 
     console.log(cartItems);
-
+    const totalPrice = cartItems.reduce((acc, item) => acc + (item.price || 0), 0);
     const dispatch = useDispatch();
 
     const handleClearCart = () => {
@@ -33,6 +33,14 @@ const Cart = () => {
                         <MenuItems name={item.name} price={item.price} />
                     </div>
                 ))}
+
+                <hr className="my-4 border-t-2 border-gray-300" />
+
+                {cartItems.length > 0 && (
+                    <h2 className="text-xl font-bold mt-4">
+                        Total Price: ₹{totalPrice}
+                    </h2>
+                )}
 
             </div>
         </div>
