@@ -1,7 +1,7 @@
 /* eslint-env vitest */
 import React from "react";
 import { render, screen } from '@testing-library/react';
-import Header from './Header.jsx';
+import Header from '../Header/Header.jsx';
 import {describe,it,expect} from "vitest";
 import "@testing-library/jest-dom/vitest"
 import appStore from "../utils/appStore.js";

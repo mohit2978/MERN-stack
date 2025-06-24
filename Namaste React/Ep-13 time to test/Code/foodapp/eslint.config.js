@@ -30,4 +30,17 @@ export default [
       ],
     },
   },
+  {
+    // ✅ This block handles test files
+    files: ['**/*.test.{js,jsx}', '**/*.spec.{js,jsx}'],
+    plugins: {
+      vitest,
+    },
+    languageOptions: {
+      globals: vitest.environments['vitest/globals'].globals,
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
+    },
+  },
 ]
