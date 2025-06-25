@@ -239,7 +239,7 @@ describe("Contact Us Page Test Case", () => {
         expect(inputName).toBeInTheDocument();
     });
 
-    it("Should load 2 input boxes on the ContactUs component", () => {
+    it("Should load 3 input boxes on the ContactUs component", () => {
         render(<ContactUs />);
 
         // Querying
@@ -255,6 +255,8 @@ describe("Contact Us Page Test Case", () => {
 ```
 in `describe` in `it` we write each testcase , for each testcase we need to render component again and again!!
 
+>Note: some repositories write `test()` in place of `it()`.`it()` is alias of `test()`
+
 `render` renders on JSDOM!!
 
 `expect` is assertion where we tell correct output!!And testing library compares the result with the expected result!
@@ -263,6 +265,7 @@ in `describe` in `it` we write each testcase , for each testcase we need to rend
 Synchronous. Throws error if not found or more than one match.
 
 **ByRole** is a query method that searches elements by their ARIA role—which is how screen readers (and other assistive tech) understand what an element does.
+These method returns `React element `. So when you log them you see whole JSON!!
 
 ✅ Example: Common Roles
 
@@ -281,7 +284,11 @@ HTML Element	Implicit ARIA Role
 
 `<img alt="...">`-->	img 
 
+if there are multiple values returned by `screen.getByRole("button")` then you can pass 2nd parameter too `screen.getByRole("button",{name:"Login"})` ,it gives you button having name `Login`~~
+
 **ByText** is a query method that searches that particular text on screen!!
+
+This is unit testing !! Let us unit test Header !!
 
 #### Header.test.jsx
 ```jsx
@@ -314,6 +321,12 @@ describe('renders header', () => {
 
 });
 ```
+>Note:We using React-redux in useSelector() hook in Header!! We have to provide store to header as useSelecctor() is not part of React ,but our testing library understand React only so useState(),useEffect() is understood but not Redux!! So we provide Provider!!
+
+>Note: Link is coming from React-router-DOM so we need to provide context of react-router-DOM!! So for that we need to provide Router!! We provide Browser Router generally!!
+
+`screen.getByText("Cart - (0 items)")` here you can pass regex too just see `screen.getByText("\Cart\")` here `\Cart` is regex!! Now whether we have cart-1,cart-0 or whatever ,we will get the test case passed!! 
+
 If any test fails you see whole html on logs!!
 
 
@@ -346,7 +359,7 @@ see header statements code covergae `96.15` let us add one more test case In Hea
         <Provider store={appStore}>
             <Header />
             </Provider>
-    </BrowserRouter>
+        </BrowserRouter>
     );
 
         const loginButton = screen.getByRole("button", { name: "Login" });
