@@ -136,6 +136,23 @@ import '@testing-library/jest-dom';
 
 ```
 
+In eslint.config.js put 
+```js
+
+    // ✅ This block handles test files
+    files: ['**/*.test.{js,jsx}', '**/*.spec.{js,jsx}'],Add commentMore actions
+    plugins: {
+      vitest,
+    },
+    languageOptions: {
+      globals: vitest.environments['vitest/globals'].globals,
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
+    },
+  },
+  ```
+
 Let us write some test cases for js !!
 we write a sum function 
 
@@ -163,6 +180,134 @@ describe("Sum function should caculate the sum of two numbers", () => {
 ```
 
 descibe takes 2 argument 1 is string and 2nd is callback function where we write test case!!
+
+Now let us do unit testing  
+
+>for header check Do we have Home on the header!!
+
+```jsx
+describe('renders header', () => {
+    it('renders correctly', () => {
+        render(
+            <MemoryRouter>
+                <Provider store={appStore}>
+                    <Header />
+                </Provider>
+            </MemoryRouter>
+        );
+        expect(screen.getByText("Home")).toBeInTheDocument();
+    })
+```
+
+In describe we write all testcases
+#### ContactUs.text.jsx
+
+```jsx
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import ContactUs from "../ContactUs/ContactUs.jsx";
+
+describe("Contact Us Page Test Case", () => {
+  
+
+    it("Should load ContactUs us component", () => {
+        render(<ContactUs />);
+
+        const headings = screen.getAllByRole("heading");
+        // Assertion
+        expect(headings[0]).toBeInTheDocument();
+    });
+
+    it("Should load button inside ContactUs component", () => {
+        render(<ContactUs />);
+
+        const button = screen.getByRole("button");
+
+        // Assertion
+        expect(button).toBeInTheDocument();
+    });
+
+    it("Should load input name inside ContactUs component", () => {
+        render(<ContactUs />);
+
+        const inputName = screen.getByPlaceholderText("Your Name");
+
+        // Assertion
+        expect(inputName).toBeInTheDocument();
+    });
+
+    it("Should load 2 input boxes on the ContactUs component", () => {
+        render(<ContactUs />);
+
+        // Querying
+        const inputBoxes = screen.getAllByRole("textbox");
+
+        //console.log(inputBoxes.length);
+
+        // Assertion
+
+        expect(inputBoxes.length).toBe(3);
+    });
+});
+```
+`render` renders on JSDOM!!
+
+`expect` is assertion where we twll correct output!!And testing library compares the result with the expected result!
+
+- getBy-->
+Synchronous. Throws error if not found or more than one match.
+
+**ByRole** is a query method that searches elements by their ARIA role—which is how screen readers (and other assistive tech) understand what an element does.
+
+✅ Example: Common Roles
+
+HTML Element	Implicit ARIA Role
+`<button>`-->	button
+
+`<h1> - <h6>`-->	heading
+
+`<a href="...">`-->	link
+
+`<input type="text">`-->	textbox
+
+`<input type="checkbox">`-->	checkbox
+
+`<form>`-->	form
+
+`<img alt="...">`-->	img 
+
+
+#### Header.test.jsx
+```jsx
+
+describe('renders header', () => {
+    it('renders correctly', () => {
+        render(
+            <MemoryRouter>
+                <Provider store={appStore}>
+                    <Header />
+                </Provider>
+            </MemoryRouter>
+        );
+        expect(screen.getByText("Home")).toBeInTheDocument();
+    })
+
+    it("Should render Header Component with a Cart items 0 ", () => {
+        render(
+            <BrowserRouter>
+                <Provider store={appStore}>Add commentMore actions
+                    <Header />
+                </Provider>
+            </BrowserRouter>
+        );
+
+        const cartItems = screen.getByText("Cart - (0 items)");
+
+        expect(cartItems).toBeInTheDocument();
+    });
+
+});
+```
 
 ### Code coverage
 
