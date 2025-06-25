@@ -57,12 +57,64 @@ We have seen Variable a of outerFunction cannot be accessed outside!! like that 
 
 Only way is `module.exports`!!
 
+>Note: all the code of module is wrapped inside a function!! 
 
+Now the function wrapping other function and variables called as `Immediately Invoked Function Expression(IIFE)`!!
 
+Basically created a fucntion and immediately called it on the fly!!
 
+ex:
 
+```js
+(function() {
+  // Code here runs immediately
+  console.log("IIFE executed!");
+})();
+```
 
+Output:`IIFE executed!`
 
+or can use 
+
+```js
+(() => {
+  console.log("Arrow IIFE executed!");
+})();
+```
+
+Another ex
+
+```js
+const counter = (function() {
+  let count = 0;
+  return {
+    increment: () => ++count,
+    getCount: () => count
+  };
+})();
+
+console.log(counter.increment()); // 1
+console.log(counter.getCount());  // 1
+
+```
+The IIFE returns an object with two methods:
+
+increment-->	Increases count by 1 and returns it
+
+getCount-->	Returns the current value of count
+
+Similarly 
+
+```js
+{
+    ()=>{
+        //All module code comes up here
+    }
+}()
+```
+Nodejs wraps module code inside IIFE before giving it to V8!!So which keeps variables and function safe!! So outside code does not effect code of module!!
+
+> Note:IIFE is an anonymous function (no name) immediately invoked!!
 
 
 
