@@ -200,6 +200,9 @@ describe('renders header', () => {
 ```
 
 In describe we write all testcases
+
+Expect is assertion and after expect you can check via lot of functions!!
+
 #### ContactUs.text.jsx
 
 ```jsx
@@ -250,9 +253,11 @@ describe("Contact Us Page Test Case", () => {
     });
 });
 ```
+in `describe` in `it` we write each testcase , for each testcase we need to render component again and again!!
+
 `render` renders on JSDOM!!
 
-`expect` is assertion where we twll correct output!!And testing library compares the result with the expected result!
+`expect` is assertion where we tell correct output!!And testing library compares the result with the expected result!
 
 - getBy-->
 Synchronous. Throws error if not found or more than one match.
@@ -276,6 +281,7 @@ HTML Element	Implicit ARIA Role
 
 `<img alt="...">`-->	img 
 
+**ByText** is a query method that searches that particular text on screen!!
 
 #### Header.test.jsx
 ```jsx
@@ -308,6 +314,8 @@ describe('renders header', () => {
 
 });
 ```
+If any test fails you see whole html on logs!!
+
 
 ### Code coverage
 
@@ -315,19 +323,75 @@ testcase covers how much percentage of code!!
 
 `npm install -D c8` --> for code coverage
 
-`npx vitest run --coverage` --> to run!!
+`npx vitest run --coverage` --> to run!! For first time you need to get a dependency then you will be able to see coverage
+
+![alt text](image.png)
+
+After that see coverage
+
+![alt text](image-1.png)
 
 
 
 
 
 
+see header statements code covergae `96.15` let us add one more test case In Header
 
+```jsx
 
+    it("Should change Login Button to Logout on click", () => {
+        render(
+        <BrowserRouter>
+        <Provider store={appStore}>
+            <Header />
+            </Provider>
+    </BrowserRouter>
+    );
 
+        const loginButton = screen.getByRole("button", { name: "Login" });
 
+        fireEvent.click(loginButton);
 
+        const logoutButton = screen.getByRole("button", { name: "Logout" });
 
+        expect(logoutButton).toBeInTheDocument();
+    });
+```
+Now see code coverage!!
+
+![alt text](image-2.png)
+
+see it increased , now can see which lines not covered !! line '52` is not covered !!
+
+Line 52 was after login value is set as logot that was not covered so modified TC(test case)
+
+```jsx
+    it("Should change Login Button to Logout on click", () => {
+        render(
+        <BrowserRouter>
+        <Provider store={appStore}>
+            <Header />
+            </Provider>
+    </BrowserRouter>
+    );
+
+        const loginButton = screen.getByRole("button", { name: "Login" });
+
+        fireEvent.click(loginButton);
+
+        const logoutButton = screen.getByRole("button", { name: "Logout" });
+
+        fireEvent.click(loginButton);
+
+        expect(logoutButton).toBeInTheDocument();
+    });
+
+});
+```
+Now coverage is 100 Percent 
+
+![alt text](image-3.png)
 
 
 
