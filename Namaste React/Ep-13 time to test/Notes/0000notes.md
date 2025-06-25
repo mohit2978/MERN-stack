@@ -395,7 +395,7 @@ Line 52 was after login value is set as logot that was not covered so modified T
 
         const logoutButton = screen.getByRole("button", { name: "Logout" });
 
-        fireEvent.click(loginButton);
+        fireEvent.click(logoutButton);
 
         expect(logoutButton).toBeInTheDocument();
     });
@@ -406,7 +406,28 @@ Now coverage is 100 Percent
 
 ![alt text](image-3.png)
 
+```jsx
+screen.getByRole('button', { name: 'Submit' });
+screen.getByRole('heading', { name: /welcome/i });
+```
 
+the name refers to the element's accessible name—which usually comes from:
+
+#### 🔤 What is "accessible name"?
+
+It’s the text that screen readers use to describe the element, and it can come from:
+
+✅ Common Sources of name in HTML
+
+Element	-->How name is set (in HTML)-->	Example HTML
+
+`<button>`-->	Inner text-->`	<button>Submit</button>`
+
+`<input>`-->	Associated-->` <label>	<label>Email<input type="text" /></label>`
+
+`<img>`-->	alt attribute-->`	<img alt="User avatar" />`
+
+`<a>`-->	Link text	-->`<a href="/">Home</a>`
 
 
 

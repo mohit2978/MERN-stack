@@ -50,7 +50,7 @@ describe('renders header', () => {
 
         const logoutButton = screen.getByRole("button", { name: "Logout" });
 
-        fireEvent.click(loginButton);
+        fireEvent.click(logoutButton);
 
         expect(logoutButton).toBeInTheDocument();
     });
