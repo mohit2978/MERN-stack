@@ -1,0 +1,8 @@
+[{
+  "name": "Green Bowl",
+  "isOpen": false,
+  "cuisines": ["Healthy", "Salads"],
+  "stars": 4.1,
+  "eta": 15,
+  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbUvHy4mw_hWd-Hj2Pl9Lz1f9bpYc-V638lg&s"
+}]

@@ -485,8 +485,142 @@ it("should render RestaurantCard component with Promoted Label", () => {
 });
 ```
 
+Till now we were doing uit testing ,tetsing one component al alone ,now we do integration testing where we check the flow!!
+
+we first test search functionality in serch bar in body!!
+
+so in body multiple components needs tow ork together!!
+
+In body we are calling external backend API to get the data which is async call!!
+
+`fetch` cannot be done so we need to create mock function for fetch!!
+
+```jsx
+import { fireEvent, render, screen } from "@testing-library/react";
+import MOCK_DATA from "./mockData/mockList.json";
+import  MOCK_SEARCH_RESULT from "./mockData/GreenBowl.json";
+import { BrowserRouter } from "react-router";
+import Body from "../Body/Body.jsx";
+import { vi } from "vitest";
+import {act} from "react";
+
+// Reset before each test
+beforeEach(() => {
+    vi.restoreAllMocks();
+});
+
+global.fetch = vi.fn((url) => {
+    if (url.includes("/api/res/search")) {
+        // Mock search result (e.g., Green Bowl)
+        return Promise.resolve({
+            json: () => Promise.resolve(MOCK_SEARCH_RESULT),
+        });
+    } else if (url.includes("/api/res")) {
+        // Mock initial list
+        return Promise.resolve({
+            json: () => Promise.resolve(MOCK_DATA),
+        });
+    }
+});
+
+it("Should Search Res List for Green bowl text input ", async () => {
+    await act(async () =>
+        render(
+            <BrowserRouter>
+                <Body />
+            </BrowserRouter>
+        )
+    );
+
+    const cardsBeforeSearch = screen.getAllByTestId("resCard");
+
+    expect(cardsBeforeSearch.length).toBe(11);
+
+    const searchBtn = screen.getByRole("button", { name: "Search" });
+
+    const searchInput = screen.getByTestId("searchInput");
+
+    fireEvent.change(searchInput, { target: { value: "Green Bowl" } });
+
+    // ✅ Wrap click in act
+    await act(async () => {
+        fireEvent.click(searchBtn);
+    });
+
+    // ✅ Use findAllByTestId to wait for UI to update
+    const cardsAfterSearch = await screen.findAllByTestId("resCard");
+    expect(cardsAfterSearch.length).toBe(1);
+});
+
+it("Should filter Top Rated Restaurant", async () => {
+    await act(async () =>
+        render(
+            <BrowserRouter>
+                <Body />
+            </BrowserRouter>
+        )
+    );
+
+    const cardsBeforeFilter = screen.getAllByTestId("resCard");
+
+    expect(cardsBeforeFilter.length).toBe(11);
+
+    const topRatedBtn = screen.getByRole("button", {
+        name: "Top Rated Resturant",
+    });
+    fireEvent.click(topRatedBtn);
+
+    const cardsAfterFilter = screen.getAllByTestId("resCard");
+    expect(cardsAfterFilter.length).toBe(9);
+});
+```
+when calling fireEvent.click(searchBtn) outside of an `async act(...)` block. This means React hasn't finished updating the DOM after the fetch() inside searchdata() is called — so you're still seeing the old list of 11 cards. so to search `Green Bowl` put in await act!!
+
+create mock data can see it in tests folder!!
+
+Now see mock fetch function 
+
+```jsx
+
+global.fetch = vi.fn((url) => {
+    if (url.includes("/api/res/search")) {
+        // Mock search result (e.g., Green Bowl)
+        return Promise.resolve({
+            json: () => Promise.resolve(MOCK_SEARCH_RESULT),
+        });
+    } else if (url.includes("/api/res")) {
+        // Mock initial list
+        return Promise.resolve({
+            json: () => Promise.resolve(MOCK_DATA),
+        });
+    }
+});
+
+```
+
+>Note:We want fetch function same as browser fetch which returns a promise and get json and then in that json we have a function which has promise we resolve that too!!
+
+whenever `stateUpdate` or `fetch` wrap `render` in to an `act` function.act returns a promise, when we use act we make ,`it` function callback as `async`!!then `act` further takes up an async function !!
+
+```jsx
+   await act(async () =>
+        render(
+            <BrowserRouter>
+                <Body />
+            </BrowserRouter>
+        )
+    );
+
+ ```
 
 
+ `screen.getByTestId("searchInput");` for this to work we added `data-testid` this in input
 
+ ```html
+       
+                <input  data-testid="searchInput" type="text" className="bg-white border border-gray-400 rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-50 "
+                  value={searchTerm}   
 
+```
 
+`getByTestId` always works . You can always use it!!
