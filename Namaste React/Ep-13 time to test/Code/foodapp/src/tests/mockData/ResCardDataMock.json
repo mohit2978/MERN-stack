@@ -1,0 +1,72 @@
+{
+    "name": "Spice Garden",
+    "isOpen": true,
+    "cuisines": ["Indian", "Tandoori"],
+    "rating": 4.5,
+    "deliveryTime": 30,
+    "image": "https://content.jdmagicbox.com/v2/comp/delhi/v6/011pxx11.xx11.230205060526.n9v6/catalogue/the-spice-garden-delhi-restaurants-ptcucdn9ri-250.jpg",
+    "cards": [
+      {
+        "title": "Most Recommended",
+        "items": [
+          { "name": "Butter Chicken", "price": 350.0 },
+          { "name": "Tandoori Roti", "price": 40.0 },
+          { "name": "Paneer Tikka", "price": 280.0 },
+          { "name": "Chicken Tikka", "price": 320.0 },
+          { "name": "Dal Makhani", "price": 240.0 },
+          { "name": "Jeera Rice", "price": 180.0 },
+          { "name": "Lassi", "price": 120.0 },
+          { "name": "Gulab Jamun", "price": 100.0 },
+          { "name": "Naan", "price": 50.0 },
+          { "name": "Mixed Veg Curry", "price": 260.0 }
+        ]
+      },
+      {
+        "title": "Non-veg",
+        "items": [
+          { "name": "Chicken Shawarma", "price": 320.0 },
+          { "name": "Lamb Kebab", "price": 450.0 },
+          { "name": "Butter chicken", "price": 300.0 },
+          { "name": "Kadhai chicken", "price": 220.0 },
+          { "name": "Chilli chicken", "price": 250.0 },
+          { "name": "Afgani chicken", "price": 280.0 },
+          { "name": "Chicken Tikka", "price": 200.0 },
+          { "name": "Chicken Malai Tikka", "price": 180.0 },
+          { "name": "Chicken Roll", "price": 400.0 },
+          { "name": "Stuffed Grape Leaves Chicken", "price": 240.0 }
+        ]
+      },
+      {
+        "title": "Newly Added",
+        "items": [
+          { "name": "Chicken Shawarma", "price": 320.0 },
+          { "name": "Lamb Kebab", "price": 450.0 },
+          { "name": "Falafel Wrap", "price": 300.0 },
+          { "name": "Hummus with Pita", "price": 220.0 },
+          { "name": "Tabbouleh", "price": 250.0 },
+          { "name": "Grilled Veggies", "price": 280.0 },
+          { "name": "Baklava", "price": 200.0 },
+          { "name": "Mint Lemonade", "price": 180.0 },
+          { "name": "Beef Kofta", "price": 400.0 },
+          { "name": "Stuffed Grape Leaves", "price": 240.0 }
+        ]
+      },
+      {
+        "title": "Must Try",
+        "items": [
+          { "name": "Chicken Biryani", "price": 400.0 },
+          { "name": "Mutton Biryani", "price": 450.0 },
+          { "name": "Veg Biryani", "price": 350.0 },
+          { "name": "Egg Biryani", "price": 380.0 },
+          { "name": "Raita", "price": 100.0 },
+          { "name": "Salad", "price": 120.0 },
+          { "name": "Gulab Jamun", "price": 150.0 },
+          { "name": "Paneer Biryani", "price": 400.0 },
+          { "name": "Hyderabadi Biryani", "price": 480.0 },
+          { "name": "Soft Drink", "price": 80.0 }
+        ]
+      }
+    ]
+  }
+
+

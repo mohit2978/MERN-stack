@@ -430,6 +430,61 @@ Element	-->How name is set (in HTML)-->	Example HTML
 `<a>`-->	Link text	-->`<a href="/">Home</a>`
 
 
+Now let us test for RestuarantCard!! see it 
+
+```jsx
+import {Link} from "react-router";
+
+const RestuarantCard = (props ) => {
+
+    if (!props || !props.data) {
+        return null; // or a fallback UI
+    }
+    const { name, cuisines, stars, eta ,imageUrl}=props.data;
+
+    return (
+        <div className=" w-50 h-90 p-5 bg-red-300 hover:bg-red-200 rounded-lg hover:cursor-pointer hover:border-gray-800">
+            <img className='w-full h-[60%] rounded-2xl' src={imageUrl} alt=""/>
+            <h3 className="font-bold py-4.5 hover:cursor-pointer hover:text-2xl hover:text-amber-600" ><Link
+                to={`restuarants/${name}`}>
+                {name}</Link></h3>
+            <h4>{cuisines.join(", ")}</h4>
+            <h4>{stars} Stars</h4>
+            <h4>{eta} minutes</h4>
+        </div>
+    )
+}
+
+export default RestuarantCard;
+```
+It is getting props so we need props in it to test!!
+
+we need to put fix data in place of it so see
+
+```jsx
+import { render, screen } from "@testing-library/react";
+import {describe,it,expect} from "vitest";
+import "@testing-library/jest-dom/vitest"
+import RestuarantCard from "../Body/RestuarantCard.jsx";
+import MOCK_DATA from "./mockData/ResCardDataMock.json";
+import {BrowserRouter} from "react-router";
+
+it("should render RestaurantCard component with props Data", () => {
+    render(
+        <BrowserRouter>
+        <RestuarantCard data={MOCK_DATA} />
+            </BrowserRouter>);
+
+    const name = screen.getByText("Spice Garden");
+
+    expect(name).toBeInTheDocument();
+});
+
+it("should render RestaurantCard component with Promoted Label", () => {
+
+});
+```
+
 
 
 
