@@ -624,3 +624,26 @@ whenever `stateUpdate` or `fetch` wrap `render` in to an `act` function.act retu
 ```
 
 `getByTestId` always works . You can always use it!!
+
+### 1. beforeEach()
+
+Runs before each individual test (it() block).
+
+Use this to reset mocks, re-render components, or reset variables.
+
+Example use: cleaning or preparing data before each test.
+
+ ### 2. afterEach()
+Runs after each individual test.
+
+Use it to clean up after a test (reset timers, mocks, DOM elements, etc.).
+
+###  3. beforeAll()
+Runs once before all tests in a describe block or entire file.
+
+Useful for expensive setup tasks (e.g., starting a server, DB connection).
+
+###  4. afterAll()
+Runs once after all tests finish.
+
+Use it to clean up global resources (e.g., close DB, shut down server).
